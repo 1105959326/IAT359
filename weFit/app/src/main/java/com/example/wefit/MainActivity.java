@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -83,23 +84,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
 
-        if (v.getId() == R.id.infor_button){
-            ft.replace(R.id.activity_window,new SecondFragment());
-            ft.commit();
-
-        }
-//        switch (v.getId()){
-//            case R.id.record_button:
-//                ft.replace(R.id.activity_window,new FirstFragment());
+//        if (v.getId() == R.id.infor_button){
+//            ft.replace(R.id.activity_window,new FirstFragment());
+//            ft.commit();
 //
-//                break;
-//            case R.id.infor_button:
-//                ft.replace(R.id.activity_window,new SecondFragment());
-//                break;
-//            default:
-//                break;
 //        }
+        switch (v.getId()){
+            case R.id.record_button:
+                Log.d("debug", "123");
+                ft.replace(R.id.activity_window,new FirstFragment());
 
+                break;
+            case R.id.infor_button:
+                ft.replace(R.id.activity_window,new SecondFragment());
+                break;
+            default:
+                break;
+        }
+
+        ft.commit();
     }
 }
