@@ -7,20 +7,36 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button recordButton, inforButton, gpsButton;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        findButton();
         setSupportActionBar(toolbar);
+
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+
+        ft.replace(R.id.activity_window, new SecondFragment());
+        ft.commit();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+    }
+
+    private void findButton(){
+        recordButton =(Button) findViewById(R.id.record_button);
+        inforButton = (Button) findViewById(R.id.infor_button);
+        gpsButton =(Button) findViewById(R.id.gps_button);
+
+        recordButton.setOnClickListener(this);
+        inforButton.setOnClickListener(this);
+        gpsButton.setOnClickListener(this);
     }
 
     @Override
@@ -52,5 +79,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.infor_button){
+            ft.replace(R.id.activity_window,new SecondFragment());
+            ft.commit();
+
+        }
+//        switch (v.getId()){
+//            case R.id.record_button:
+//                ft.replace(R.id.activity_window,new FirstFragment());
+//
+//                break;
+//            case R.id.infor_button:
+//                ft.replace(R.id.activity_window,new SecondFragment());
+//                break;
+//            default:
+//                break;
+//        }
+
     }
 }
