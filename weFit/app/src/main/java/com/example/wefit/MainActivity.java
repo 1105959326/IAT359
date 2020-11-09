@@ -87,15 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
-//        if (v.getId() == R.id.infor_button){
-//            ft.replace(R.id.activity_window,new FirstFragment());
-//            ft.commit();
-//
-//        }
         switch (v.getId()){
             case R.id.record_button:
                 Log.d("debug", "123");
-                ft.replace(R.id.activity_window,new FirstFragment());
+                ft.replace(R.id.activity_window,new RecordingActivity());
 
                 break;
             case R.id.infor_button:
