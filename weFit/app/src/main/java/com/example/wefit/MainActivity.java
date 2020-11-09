@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ft.replace(R.id.activity_window, new SecondFragment());
-        ft.commit();
+        ft.commitAllowingStateLoss();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
