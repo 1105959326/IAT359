@@ -10,17 +10,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/walk_button"
+            android:id="@+id/run_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Run" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/ride_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Drive" />
+            android:text="Ride" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

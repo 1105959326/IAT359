@@ -16,7 +16,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private Button activityButton;
     private Button SecondButton;
-    private FirstFragment firstFragment;
 
     @Override
     public View onCreateView(
@@ -31,20 +30,20 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SecondButton= view.findViewById(R.id.button_second);
-        SecondButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(firstFragment==null){
-                    firstFragment = new FirstFragment();
-                }
-                getFragmentManager().beginTransaction().replace(R.id.activity_window,firstFragment).commitAllowingStateLoss();
-
-            }
-
-
-
-        });
+//        SecondButton= view.findViewById(R.id.button_second);
+//        SecondButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                if(firstFragment==null){
+//                    firstFragment = new FirstFragment();
+//                }
+//                getFragmentManager().beginTransaction().replace(R.id.activity_window,firstFragment).commitAllowingStateLoss();
+//
+//            }
+//
+//
+//
+//        });
 
 
 //        view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
