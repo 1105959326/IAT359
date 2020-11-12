@@ -57,7 +57,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener{
             if (state == 1){
 
                 Intent i = new Intent(getContext(), RecordPage.class);
-                i.putExtra("state", "run");
+                i.putExtra("state", "RUN");
                 getContext().startActivity(i);
 
             }

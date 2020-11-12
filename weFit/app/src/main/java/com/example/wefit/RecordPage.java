@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +16,12 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
     private Button startBtn, resumeBtn, finishBtn;
     private boolean state = false;
-    private TextView stepText, typeText, stateText;
+    private TextView stepText, typeText, stateText, timeText;
     private String type;
     private SensorManager sm;
     private Sensor sensorS;
-    private int stepNum = 0;
-
+    private int stepNum = 0, cnt;
+    private CountDownTimer t;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -29,10 +30,29 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         findById();
 
         type = getIntent().getStringExtra("state");
-        if(type == "run")findViewById(R.id.step_layer).setVisibility(View.VISIBLE);
+        if(type == "RUN")findViewById(R.id.step_layer).setVisibility(View.VISIBLE);
 
         sm = (SensorManager) getSystemService(this.SENSOR_SERVICE);
         sensorS = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+
+        t = new CountDownTimer(Long.MAX_VALUE, 1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                cnt++;
+                long millis = cnt;
+                int second = (int)(millis/60);
+                int minutes = (int) (second/60);
+                second %= 60;
+                millis = millis % 60;
+
+                timeText.setText(String.format("%02d:%02d:%02d", minutes, second, millis));
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
         activity();
     }
 
@@ -40,6 +60,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         startBtn = findViewById(R.id.start_btn);
         resumeBtn = findViewById(R.id.resume_button);
         finishBtn = findViewById(R.id.finish_btn);
+        timeText = findViewById(R.id.time_text);
 
         stepText = findViewById(R.id.steps);
         typeText = findViewById(R.id.activity_type);
@@ -67,6 +88,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
             resumeBtn.setVisibility(View.VISIBLE);
             finishBtn.setVisibility(View.VISIBLE);
             state = true;
+            t.start();
             stateText.setText("Started");
         }
 
@@ -74,25 +96,40 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
             if(state) {
                 resumeBtn.setText("Resume");
                 state = false;
+                t.cancel();
                 stateText.setText("Paused");
             }
             else{
                 resumeBtn.setText("pause");
                 state = true;
+                t.start();
                 stateText.setText("Started");
             }
         }
 
         if (v.getId() == R.id.finish_btn){
+            t.cancel();
             finish();
         }
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        stepNum = (int) event.values[0];
+        Sensor sensor = event.sensor;
+        float[] values = event.values;
+        int value = -1;
+
+        if (values.length > 0) {
+            value = (int) values[0];
+        }
 
 
+        if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+            stepNum++;
+        }
+
+        stepText.setText(stepNum);
+        Log.d("debug", String.valueOf(1));
     }
 
     @Override
@@ -105,7 +142,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
         super.onResume();
 
-        sm.registerListener(this, sensorS, SensorManager.SENSOR_DELAY_NORMAL);
+        sm.registerListener(this, sensorS, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     protected void onStop() {
