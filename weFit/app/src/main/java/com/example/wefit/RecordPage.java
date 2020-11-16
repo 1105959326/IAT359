@@ -1,6 +1,8 @@
 package com.example.wefit;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener {
 
@@ -33,7 +37,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         if(type == "RUN")findViewById(R.id.step_layer).setVisibility(View.VISIBLE);
 
         sm = (SensorManager) getSystemService(this.SENSOR_SERVICE);
-        sensorS = sm.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        sensorS = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
@@ -56,7 +60,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         activity();
     }
 
-    private void findById(){
+    protected void findById(){
         startBtn = findViewById(R.id.start_btn);
         resumeBtn = findViewById(R.id.resume_button);
         finishBtn = findViewById(R.id.finish_btn);
@@ -115,20 +119,20 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        Sensor sensor = event.sensor;
-        float[] values = event.values;
-        int value = -1;
+//        Sensor sensor = event.sensor;
+//        float[] values = event.values;
+//        int value = -1;
+//
+//        if (values.length > 0) {
+//            value = (int) values[0];
+//        }
+//
+//
+//        if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+//            stepNum++;
+//        }
 
-        if (values.length > 0) {
-            value = (int) values[0];
-        }
-
-
-        if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-            stepNum++;
-        }
-
-        stepText.setText(stepNum);
+        stepText.setText(111);
         Log.d("debug", String.valueOf(1));
     }
 

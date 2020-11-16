@@ -1,5 +1,7 @@
 package com.example.wefit;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft = fm.beginTransaction();
 
 
-        ft.replace(R.id.activity_window, new SecondFragment());
+        ft.replace(R.id.activity_window, new RecordingActivity());
         ft.commitAllowingStateLoss();
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -48,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
+            //ask for permission
+            //requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, PERMISSION_REQUEST_ACTIVITY_RECOGNITION);
+        }
     }
 
     private void findButton(){
