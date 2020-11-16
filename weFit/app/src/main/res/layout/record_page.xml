@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg4">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -48,13 +49,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.00"
-                android:textSize="60sp" />
+                android:fontFamily="@font/russoone_regular"
+                android:textSize="65sp" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="km" />
+                android:fontFamily="@font/russoone_regular"
+                android:text="km"
+                android:textSize="22sp"/>
         </TableRow>
 
         <TableRow
@@ -82,6 +86,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Steps: "
+                        android:textSize="20sp"
+                        android:fontFamily="@font/russoone_regular"
                         android:textAlignment="viewEnd" />
 
                     <TextView
@@ -90,6 +96,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/russoone_regular"
                         android:text="0" />
 
                 </TableRow>
@@ -107,6 +115,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Time: "
+                        android:textSize="20sp"
+                        android:fontFamily="@font/russoone_regular"
                         android:textAlignment="viewEnd" />
 
                     <TextView
@@ -115,7 +125,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="0:00:00" />
+                        android:fontFamily="@font/russoone_regular"
+                        android:text="0:00:00"
+                        android:textSize="20sp"
+                        />
                 </TableRow>
 
                 <TableRow
@@ -131,6 +144,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Speed: "
+                        android:textSize="20sp"
+                        android:fontFamily="@font/russoone_regular"
                         android:textAlignment="viewEnd" />
 
                     <TextView
@@ -139,7 +154,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="0" />
+                        android:fontFamily="@font/russoone_regular"
+                        android:text="0"
+                        android:textSize="20sp"/>
                 </TableRow>
 
                 <TableRow
@@ -155,6 +172,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:text="Calories: "
+                        android:textSize="20sp"
+                        android:fontFamily="@font/russoone_regular"
                         android:textAlignment="viewEnd" />
 
                     <TextView
@@ -163,7 +182,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="0" />
+                        android:fontFamily="@font/russoone_regular"
+                        android:text="0"
+                        android:textSize="20sp"/>
                 </TableRow>
             </TableLayout>
         </TableRow>
@@ -180,21 +201,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Pause"
+                style="@style/Widget.AppCompat.Button"
+                android:fontFamily="@font/russoone_regular"
                 android:visibility="visible" />
 
             <Button
                 android:id="@+id/start_btn"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/russoone_regular"
                 android:text="start!" />
 
             <Button
                 android:id="@+id/finish_btn"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Finish"
+                android:fontFamily="@font/russoone_regular"
                 android:visibility="visible" />
 
         </TableRow>

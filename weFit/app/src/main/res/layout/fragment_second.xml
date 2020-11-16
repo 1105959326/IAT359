@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="Today Step"
-
+                android:fontFamily="@font/russoone_regular"
                 android:textSize="20dp" />
         </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:id="@+id/TodayStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:fontFamily="@font/russoone_regular"
                 android:text="20000"
                 android:textSize="50dp" />
 
@@ -115,12 +115,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Step" />
+                        android:text="Total Step"
+                        android:fontFamily="@font/russoone_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="35000"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -135,12 +137,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Speed" />
+                        android:text="Speed"
+                        android:fontFamily="@font/russoone_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="12Km/h"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -155,12 +159,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Higher Speed" />
+                        android:text="Higher Speed"
+                        android:fontFamily="@font/russoone_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="16Km/h"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -171,6 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
+                android:fontFamily="@font/russoone_regular"
                 android:text="Your body" />
 
             <RelativeLayout
@@ -197,6 +204,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="180CM"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -221,6 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="75Kg"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -244,6 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="25yr"
+                        android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -254,15 +264,19 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:fontFamily="@font/russoone_regular"
                 android:text="Share" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:fontFamily="@font/russoone_regular"
                 android:text="Share" />
 
         </LinearLayout>

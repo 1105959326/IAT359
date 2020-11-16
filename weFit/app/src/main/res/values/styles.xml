@@ -5,7 +5,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--        <item name="colorButtonNormal">@color/myBlue</item>-->
+        <!--        <item name="colorControlHighlight">@color/myWhite</item>-->
+
     </style>
+
+    <style name="FlatButton" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/myWhite</item>
+        <item name="colorControlHighlight">@color/myBlue</item>
+    </style>
+
+    <!--    <style name="PrimaryColoredButton" parent="Base.Widget.AppCompat.Button.Colored">-->
+    <!--        <item name="colorButtonNormal">@color/myWhite</item>-->
+    <!--        <item name="colorControlHighlight">@color/myBlue</item>-->
+    <!--    </style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
