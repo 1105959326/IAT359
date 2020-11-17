@@ -270,19 +270,52 @@
                 android:fontFamily="@font/russoone_regular"
                 android:text="Share" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/russoone_regular"
-                android:text="Share" />
+
 
         </LinearLayout>
 
+
+
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/button_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/record_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/russoone_regular"
+            android:text="Activity"
+            />
+
+        <Button
+            android:id="@+id/infor_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/russoone_regular"
+            android:text="Information" />
+
+        <Button
+            android:id="@+id/gps_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/russoone_regular"
+            android:text="GPS" />
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>
+
 
