@@ -1,12 +1,13 @@
 package com.example.wefit;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -14,18 +15,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
 
-public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener {
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
+public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener, LocationListener {
 
     private Button startBtn, resumeBtn, finishBtn;
     private boolean state = false;
-    private TextView stepText, typeText, stateText, timeText;
+    private TextView  typeText, stateText, timeText, distanceText, speedText, caloryText;
     private String type;
     private SensorManager sm;
     private Sensor sensorS;
-    private int stepNum = 0, cnt;
+    private int cnt;
     private CountDownTimer t;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location originL, currentL;
+    private LocationManager locationManager;
+    private float final_distance = (float) 0.000;
+
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -33,11 +42,13 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
         findById();
 
-        type = getIntent().getStringExtra("state");
-        if(type == "RUN")findViewById(R.id.step_layer).setVisibility(View.VISIBLE);
+        sm = (SensorManager)getSystemService(SENSOR_SERVICE); //set sensor manager
+        sensorS = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); //get accelerometer
 
-        sm = (SensorManager) getSystemService(this.SENSOR_SERVICE);
-        sensorS = sm.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+        type = getIntent().getStringExtra("state");
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
@@ -57,6 +68,12 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
             }
         };
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, this);
+
+
         activity();
     }
 
@@ -66,10 +83,11 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         finishBtn = findViewById(R.id.finish_btn);
         timeText = findViewById(R.id.time_text);
 
-        stepText = findViewById(R.id.steps);
         typeText = findViewById(R.id.activity_type);
         stateText = findViewById(R.id.activity_state);
-
+        distanceText = findViewById(R.id.distance_txt);
+        speedText = findViewById(R.id.speed_text);
+        caloryText = findViewById(R.id.speed2);
 
         startBtn.setOnClickListener(this);
         resumeBtn.setOnClickListener(this);
@@ -82,8 +100,9 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     private void activity(){
         stateText.setText("");
         typeText.setText(type);
-    }
 
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -132,8 +151,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 //            stepNum++;
 //        }
 
-        stepText.setText(111);
-        Log.d("debug", String.valueOf(1));
+
     }
 
     @Override
@@ -154,5 +172,32 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         super.onStop();
 
         sm.unregisterListener(this, sensorS);
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        if (originL == null) originL = location;
+        else{
+            currentL = location;
+            //double distance = calculate(originL, currentL);
+            float distance = currentL.distanceTo(originL);
+            originL = currentL;
+            final_distance += distance;
+            distanceText.setText(String.format("%.3f", final_distance/1000));
+            speedText.setText(String.format("%.2f", final_distance/cnt*60));
+            caloryText.setText(String.format("%.2f", final_distance/1000 * 0.625));
+        }
+    }
+
+    private double calculate(Location oL, Location fL) {
+        double latA = Math.toRadians(oL.getAltitude());
+        double lonA = Math.toRadians(oL.getLongitude());
+        double latB = Math.toRadians(fL.getAltitude());
+        double lonB = Math.toRadians(fL.getLongitude());
+        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB-lonA)) +
+                (Math.sin(latA) * Math.sin(latB));
+        double ang = Math.acos(cosAng);
+        double dist = ang *6371;
+        return dist;
     }
 }
