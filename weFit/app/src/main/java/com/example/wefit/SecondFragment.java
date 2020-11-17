@@ -1,10 +1,19 @@
 package com.example.wefit;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -15,11 +24,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
 
-    private Button activityButton;
+  private ImageView ivHead;
+  private Button change;
+  private Bitmap head;
+  private static String path="/sdcard/myHead/";
+
+
 
 
 
@@ -40,6 +58,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        findId(view);
+        initView();
 
 
 //
@@ -49,12 +69,121 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onStart();
 
     }
+    private void findId(View view) {
+        change = (Button) view.findViewById(R.id.change_button);
+        change.setOnClickListener(this);
+        ivHead = (ImageView) view.findViewById(R.id.iv_head);
+
+    }
 
 
 
+
+
+    private void initView() {
+
+        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");//从Sd中找头像，转换成Bitmap
+        if(bt!=null){
+            @SuppressWarnings("deprecation")
+            Drawable drawable = new BitmapDrawable(bt);//转换成drawable
+            ivHead.setImageDrawable(drawable);
+        }else{
+
+        }
+
+
+
+    }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.change_button://从相册里面取照片
+                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent1, 1);
+                break;
 
+            default:
+                break;
+        }
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == 1) {
+                    cropPhoto(data.getData());//裁剪图片
+                }
+
+                break;
+            case 2:
+                if (resultCode == 1) {
+                    File temp = new File(Environment.getExternalStorageDirectory()
+                            + "/head.jpg");
+                    cropPhoto(Uri.fromFile(temp));//裁剪图片
+                }
+
+                break;
+            case 3:
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    head = extras.getParcelable("data");
+                    if(head!=null){
+                        /**
+                         * 上传服务器代码
+                         */
+                        setPicToView(head);//保存在SD卡中
+                        ivHead.setImageBitmap(head);//用ImageView显示出来
+                    }
+                }
+                break;
+            default:
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    };
+    /**
+     * 调用系统的裁剪
+     * @param uri
+     */
+    public void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
+    private void setPicToView(Bitmap mBitmap) {
+        String sdStatus = Environment.getExternalStorageState();
+        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+            return;
+        }
+        FileOutputStream b = null;
+        File file = new File(path);
+        file.mkdirs();// 创建文件夹
+        String fileName =path + "head.jpg";//图片名字
+        try {
+            b = new FileOutputStream(fileName);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //关闭流
+                b.flush();
+                b.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
