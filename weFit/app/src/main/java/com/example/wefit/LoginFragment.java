@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
-    private TextView tv_back, tv_register, tv_find_psw;//返回键,显示的注册，找回密码
+    private TextView  tv_register;//返回键,显示的注册，找回密码
     private Button btn_login;//登录按钮
     private String userName, psw, spPsw;//获取的用户名，密码，加密密码
     private EditText et_user_name, et_psw;//编辑框
@@ -34,12 +34,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        findId(view);
+        init();
 
     }
 
     private void findId(View view) {
         tv_register = view.findViewById(R.id.tv_register);
-        tv_find_psw = view.findViewById(R.id.tv_find_psw);
+
         btn_login = view.findViewById(R.id.btn_login);
         et_user_name = view.findViewById(R.id.et_user_name);
         et_psw = view.findViewById(R.id.et_psw);
@@ -55,50 +57,33 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+
     }
 
     private void init() {
-        //从main_title_bar中获取的id
 
-        //从activity_login.xml中获取的
-
-        //返回键的点击事件
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //登录界面销毁
-                getActivity().finish();
-            }
-        });
-        //立即注册控件的点击事件
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //为了跳转到注册界面，并实现注册功能
-                Intent intent = new Intent(getActivity(), RegisterFragment.class);
-                startActivityForResult(intent, 1);
+
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                startActivityForResult(intent,1);
             }
         });
-        //找回密码控件的点击事件
-        tv_find_psw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //跳转到找回密码界面（此页面暂未创建）
-            }
-        });
+
+
         //登录按钮的点击事件
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //开始登录，获取用户名和密码 getText().toString().trim();
+
                 userName = et_user_name.getText().toString().trim();
                 psw = et_psw.getText().toString().trim();
-                //对当前用户输入的密码进行MD5加密再进行比对判断, MD5Utils.md5( ); psw 进行加密判断是否一致
+
                 String md5Psw = MD5Utils.md5(psw);
-                // md5Psw ; spPsw 为 根据从SharedPreferences中用户名读取密码
-                // 定义方法 readPsw为了读取用户名，得到密码
+
                 spPsw = readPsw(userName);
-                // TextUtils.isEmpty
+
                 if (TextUtils.isEmpty(userName)) {
                     Toast.makeText(getActivity(), "请输入用户名", Toast.LENGTH_SHORT).show();
                     return;
