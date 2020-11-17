@@ -50,6 +50,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
 
 
+
     @Override
     public View onCreateView(   
             LayoutInflater inflater, ViewGroup container,
@@ -67,11 +68,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         initView();
 
 
+
 //
 
     }
     public void onStart() {
         super.onStart();
+        update();
 
     }
     private void findId(View view) {
@@ -108,8 +111,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_button:
+
                 Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+
                 startActivityForResult(intent1, 1);
                 break;
 
@@ -120,9 +125,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
-                if (resultCode == 1) {
+
                     cropPhoto(data.getData());
-                }
+
 
                 break;
 
@@ -191,35 +196,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         return cursor;
     }
 
-    public String getSelectedType(String type){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+    public void update(){
+        int dis = getData().getColumnIndex("DISTANCE");
+        Distance.setText(dis);
+        int sp = getData().getColumnIndex("SPEED");
+        Speed.setText(sp);
+        int ti = getData().getColumnIndex("TIME");
+        Time.setText(ti);
+        int ca = getData().getColumnIndex("CALORY");
+        Calory.setText(ca);
 
-        String selection = Constants.TYPE + "='" + type + "'";
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection,null, null, null, null);
-
-        StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()){
-            int index1 = cursor.getColumnIndex(Constants.TYPE);
-
-            int index2 = cursor.getColumnIndex(Constants.DISTANCE);
-            Distance.setText(index2);
-            int index3 = cursor.getColumnIndex(Constants.TIME);
-            Time.setText(index3);
-            int index4 = cursor.getColumnIndex(Constants.SPEED);
-            Speed.setText(index4);
-            int index5 = cursor.getColumnIndex(Constants.CALORY);
-            Calory.setText(index4);
-            String typeA = cursor.getString(index1);
-            String dist = cursor.getString(index2);
-            String time = cursor.getString(index3);
-            String speed = cursor.getString(index4);
-            String claory = cursor.getString(index5);
-            buffer.append(typeA + " " +  dist + " " + time + " " + speed + " " + claory + "\n");
-
-
-        }
-        return  buffer.toString();
     }
  
 
