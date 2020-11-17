@@ -1,5 +1,6 @@
 package com.example.wefit;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,8 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -35,11 +38,12 @@ import java.util.List;
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private TextView Distance, Time, Speed, Calory;
   private ImageView ivHead;
-  private Button change;
+  private Button change, search;
   private Bitmap head;
   private static String path="/wefit/";
-    private SQLiteDatabase db;
+    private RecordedDatabase db;
     HelperClass helper;
+    private EditText search_type;
 
 
 
@@ -82,7 +86,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         change = (Button) view.findViewById(R.id.change_button);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
-
+        search_type = view.findViewById(R.id.search_txt);
+        search = view.findViewById(R.id.search_button);
+        search.setOnClickListener(this);
     }
 
 
@@ -115,6 +121,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
             default:
                 break;
+        }
+
+        if (v.getId() == R.id.search_button){
+            if (search_type != null){
+                String queryResults = db.getSelectedType(search_type.getText().toString());
+                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
+            }
         }
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -183,44 +196,44 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-    public Cursor getData(){
-        db = helper.getWritableDatabase();
-
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
-        return cursor;
-    }
-
-    public String getSelectedType(String type){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
-
-        String selection = Constants.TYPE + "='" + type + "'";
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection,null, null, null, null);
-
-        StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()){
-            int index1 = cursor.getColumnIndex(Constants.TYPE);
-
-            int index2 = cursor.getColumnIndex(Constants.DISTANCE);
-            Distance.setText(index2);
-            int index3 = cursor.getColumnIndex(Constants.TIME);
-            Time.setText(index3);
-            int index4 = cursor.getColumnIndex(Constants.SPEED);
-            Speed.setText(index4);
-            int index5 = cursor.getColumnIndex(Constants.CALORY);
-            Calory.setText(index4);
-            String typeA = cursor.getString(index1);
-            String dist = cursor.getString(index2);
-            String time = cursor.getString(index3);
-            String speed = cursor.getString(index4);
-            String claory = cursor.getString(index5);
-            buffer.append(typeA + " " +  dist + " " + time + " " + speed + " " + claory + "\n");
-
-
-        }
-        return  buffer.toString();
-    }
+//    public Cursor getData(){
+//        db = helper.getWritableDatabase();
+//
+//        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+//        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
+//        return cursor;
+//    }
+//
+//    public String getSelectedType(String type){
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+//
+//        String selection = Constants.TYPE + "='" + type + "'";
+//        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection,null, null, null, null);
+//
+//        StringBuffer buffer = new StringBuffer();
+//        while(cursor.moveToNext()){
+//            int index1 = cursor.getColumnIndex(Constants.TYPE);
+//
+//            int index2 = cursor.getColumnIndex(Constants.DISTANCE);
+//            Distance.setText(index2);
+//            int index3 = cursor.getColumnIndex(Constants.TIME);
+//            Time.setText(index3);
+//            int index4 = cursor.getColumnIndex(Constants.SPEED);
+//            Speed.setText(index4);
+//            int index5 = cursor.getColumnIndex(Constants.CALORY);
+//            Calory.setText(index4);
+//            String typeA = cursor.getString(index1);
+//            String dist = cursor.getString(index2);
+//            String time = cursor.getString(index3);
+//            String speed = cursor.getString(index4);
+//            String claory = cursor.getString(index5);
+//            buffer.append(typeA + " " +  dist + " " + time + " " + speed + " " + claory + "\n");
+//
+//
+//        }
+//        return  buffer.toString();
+//    }
  
 
 }
