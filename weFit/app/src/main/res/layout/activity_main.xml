@@ -25,13 +25,11 @@
     <include layout="@layout/button_layout"></include>
 
 
-
     <FrameLayout
         android:id="@+id/activity_window"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        ></FrameLayout>
+        android:layout_height="620dp"
+        android:layout_marginTop="60dp"></FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
