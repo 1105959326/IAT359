@@ -68,5 +68,10 @@ public class RecordedDatabase {
         return  buffer.toString();
     }
 
+    public void clearData(){
+        db.execSQL("DROP TABLE "+Constants.TABLE_NAME);
+    }
+
+
 
 }

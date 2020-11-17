@@ -28,7 +28,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     private String type;
     private SensorManager sm;
     private Sensor sensorS;
-    private int cnt;
+    private int cnt, burnedCal;
     private CountDownTimer t;
     private Location originL, currentL;
     private LocationManager locationManager;
@@ -46,7 +46,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
 
         type = getIntent().getStringExtra("state");
-
+        burnedCal = getIntent().getIntExtra("burnedCal", 0);
 
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
@@ -188,7 +188,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
             final_distance += distance;
             distanceText.setText(String.format("%.3f", final_distance/1000));
             speedText.setText(String.format("%.2f", final_distance/cnt*60));
-            caloryText.setText(String.format("%.2f", final_distance/1000 * 0.625));
+            caloryText.setText(String.format("%.2f", final_distance/1000 * burnedCal));
         }
     }
 
