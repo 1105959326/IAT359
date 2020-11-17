@@ -58,6 +58,13 @@ public class RecordingActivity extends Fragment implements View.OnClickListener{
 
                 Intent i = new Intent(getContext(), RecordPage.class);
                 i.putExtra("state", "RUN");
+                i.putExtra("burnedCal", 62);
+                getContext().startActivity(i);
+
+            }if (state == 2){
+                Intent i = new Intent(getContext(), RecordPage.class);
+                i.putExtra("state", "RIDE");
+                i.putExtra("burnedCal", 29);
                 getContext().startActivity(i);
 
             }
