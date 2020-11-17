@@ -16,7 +16,7 @@
         <LinearLayout
             android:id="@+id/icon_section"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:gravity="center"
             android:padding="10dp">
 
@@ -24,25 +24,20 @@
                 android:id="@+id/my_header_settings"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:contentDescription="@null"
                 android:src="@mipmap/ic_launcher" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/icon_section"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/my_header_name"
-
+            <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/change_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
 
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
+                android:fontFamily="@font/russoone_regular"
+                android:text="Change" />
         </LinearLayout>
 
 
@@ -117,12 +112,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Step"
+                        android:textColor="@color/colorAccent"
                         android:fontFamily="@font/russoone_regular"/>
+
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="35000"
+                        android:textColor="@color/myWhite"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
 
@@ -139,11 +137,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Speed"
+                        android:textColor="@color/colorAccent"
                         android:fontFamily="@font/russoone_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/myWhite"
                         android:text="12Km/h"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
@@ -154,6 +154,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -161,11 +162,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Higher Speed"
+                        android:textColor="@color/colorAccent"
                         android:fontFamily="@font/russoone_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/myWhite"
                         android:text="16Km/h"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="24sp" />
@@ -177,6 +180,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
                 android:paddingTop="16dp"
                 android:fontFamily="@font/russoone_regular"
                 android:text="Your body" />
@@ -204,6 +208,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/myWhite"
                         android:text="180CM"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
@@ -229,6 +234,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/myWhite"
                         android:text="75Kg"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
@@ -238,6 +244,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="24dp"
                     android:layout_toRightOf="@id/second_layout"
@@ -253,6 +260,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/myWhite"
                         android:text="25yr"
                         android:fontFamily="@font/russoone_regular"
                         android:textSize="16sp" />
@@ -270,6 +278,14 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/russoone_regular"
                 android:text="Share" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/russoone_regular"
+                android:text="empty" />
 
 
 
