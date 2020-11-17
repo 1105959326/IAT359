@@ -1,6 +1,8 @@
 package com.example.wefit;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,11 +33,14 @@ import java.io.IOException;
 import java.util.List;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
-
+    private TextView Distance, Time, Speed, Calory;
   private ImageView ivHead;
   private Button change;
   private Bitmap head;
-  private static String path="/sdcard/myHead/";
+  private static String path="/wefit/";
+    private SQLiteDatabase db;
+    HelperClass helper;
+
 
 
 
@@ -70,6 +75,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     }
     private void findId(View view) {
+        Distance = view.findViewById(R.id.Distance_t);
+        Time = view.findViewById(R.id.Time_t);
+        Speed = view.findViewById(R.id.Speed_t);
+        Calory = view.findViewById(R.id.Calory_t);
         change = (Button) view.findViewById(R.id.change_button);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
@@ -82,10 +91,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
 
-        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");//从Sd中找头像，转换成Bitmap
+        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if(bt!=null){
             @SuppressWarnings("deprecation")
-            Drawable drawable = new BitmapDrawable(bt);//转换成drawable
+            Drawable drawable = new BitmapDrawable(bt);
             ivHead.setImageDrawable(drawable);
         }else{
 
@@ -98,7 +107,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.change_button://从相册里面取照片
+            case R.id.change_button:
                 Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent1, 1);
@@ -112,28 +121,19 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (requestCode) {
             case 1:
                 if (resultCode == 1) {
-                    cropPhoto(data.getData());//裁剪图片
+                    cropPhoto(data.getData());
                 }
 
                 break;
-            case 2:
-                if (resultCode == 1) {
-                    File temp = new File(Environment.getExternalStorageDirectory()
-                            + "/head.jpg");
-                    cropPhoto(Uri.fromFile(temp));//裁剪图片
-                }
 
-                break;
             case 3:
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     head = extras.getParcelable("data");
                     if(head!=null){
-                        /**
-                         * 上传服务器代码
-                         */
-                        setPicToView(head);//保存在SD卡中
-                        ivHead.setImageBitmap(head);//用ImageView显示出来
+
+                        setPicToView(head);
+                        ivHead.setImageBitmap(head);
                     }
                 }
                 break;
@@ -143,18 +143,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         }
         super.onActivityResult(requestCode, resultCode, data);
     };
-    /**
-     * 调用系统的裁剪
-     * @param uri
-     */
+
     public void cropPhoto(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
+
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
+
         intent.putExtra("outputX", 150);
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
@@ -162,22 +159,22 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     }
     private void setPicToView(Bitmap mBitmap) {
         String sdStatus = Environment.getExternalStorageState();
-        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
             return;
         }
         FileOutputStream b = null;
         File file = new File(path);
-        file.mkdirs();// 创建文件夹
-        String fileName =path + "head.jpg";//图片名字
+        file.mkdirs();
+        String fileName =path + "head.jpg";
         try {
             b = new FileOutputStream(fileName);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
             try {
-                //关闭流
+
                 b.flush();
                 b.close();
             } catch (IOException e) {
@@ -186,4 +183,44 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+    public Cursor getData(){
+        db = helper.getWritableDatabase();
+
+        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
+        return cursor;
+    }
+
+    public String getSelectedType(String type){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+
+        String selection = Constants.TYPE + "='" + type + "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection,null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while(cursor.moveToNext()){
+            int index1 = cursor.getColumnIndex(Constants.TYPE);
+
+            int index2 = cursor.getColumnIndex(Constants.DISTANCE);
+            Distance.setText(index2);
+            int index3 = cursor.getColumnIndex(Constants.TIME);
+            Time.setText(index3);
+            int index4 = cursor.getColumnIndex(Constants.SPEED);
+            Speed.setText(index4);
+            int index5 = cursor.getColumnIndex(Constants.CALORY);
+            Calory.setText(index4);
+            String typeA = cursor.getString(index1);
+            String dist = cursor.getString(index2);
+            String time = cursor.getString(index3);
+            String speed = cursor.getString(index4);
+            String claory = cursor.getString(index5);
+            buffer.append(typeA + " " +  dist + " " + time + " " + speed + " " + claory + "\n");
+
+
+        }
+        return  buffer.toString();
+    }
+ 
+
 }
