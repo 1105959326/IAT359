@@ -22,7 +22,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     private Button activityButton;
 
 
-    private RecyclerView mRecyclerView;
+
 
 
 
@@ -49,42 +49,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onStart();
 
     }
-    private class VH extends RecyclerView.ViewHolder {
-        TextView tv1;
-        TextView tv2;
 
-        public VH(@NonNull View itemView) {
-            super(itemView);
-            tv1 = itemView.findViewById(R.id.tv1);
-            tv2 = itemView.findViewById(R.id.tv2);
-        }
-    }
-    private class LetterAdapter extends RecyclerView.Adapter<VH> {
 
-        private List<Character> dataList;
-
-        public LetterAdapter(List<Character> dataList) {
-            this.dataList = dataList;
-        }
-
-        @NonNull
-        @Override
-        public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.header, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull VH holder, int position) {
-            Character c = dataList.get(position);
-            holder.tv1.setText(c.toString());
-            holder.tv2.setText(String.valueOf(Integer.valueOf(c)));
-        }
-
-        @Override
-        public int getItemCount() {
-            return dataList.size();
-        }
-    }
 
 
     @Override

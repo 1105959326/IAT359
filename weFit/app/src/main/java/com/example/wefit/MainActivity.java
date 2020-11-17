@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.infor_button:
                 ft.replace(R.id.activity_window,new SecondFragment());
                 break;
+            case R.id.gps_button:
+                ft.replace(R.id.activity_window,new LoginFragment());
+                break;
             default:
                 break;
         }
