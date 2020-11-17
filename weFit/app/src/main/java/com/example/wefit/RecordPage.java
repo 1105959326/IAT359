@@ -30,7 +30,6 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     private Sensor sensorS;
     private int cnt;
     private CountDownTimer t;
-    private FusedLocationProviderClient fusedLocationProviderClient;
     private Location originL, currentL;
     private LocationManager locationManager;
     private float final_distance = (float) 0.000;
@@ -48,7 +47,6 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
         type = getIntent().getStringExtra("state");
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
