@@ -1,5 +1,6 @@
 package com.example.wefit;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,8 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -35,11 +38,12 @@ import java.util.List;
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private TextView Distance, Time, Speed, Calory;
   private ImageView ivHead;
-  private Button change;
+  private Button change, search;
   private Bitmap head;
   private static String path="/wefit/";
-    private SQLiteDatabase db;
+    private RecordedDatabase db;
     HelperClass helper;
+    private EditText search_type;
 
 
 
@@ -85,7 +89,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         change = (Button) view.findViewById(R.id.change_button);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
-
+        search_type = view.findViewById(R.id.search_txt);
+        search = view.findViewById(R.id.search_button);
+        search.setOnClickListener(this);
     }
 
 
@@ -120,6 +126,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
             default:
                 break;
+        }
+
+        if (v.getId() == R.id.search_button){
+            if (search_type != null){
+                String queryResults = db.getSelectedType(search_type.getText().toString());
+                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
+            }
         }
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -188,6 +201,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
     public Cursor getData(){
         db = helper.getWritableDatabase();
 
@@ -207,6 +221,4 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         Calory.setText(ca);
 
     }
- 
 
-}
