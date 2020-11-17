@@ -16,7 +16,7 @@ public class RecordedDatabase {
     }
 
     public long insertData (String type, String distance, String time, String speed, String calories){
-        db = helper.getWritableDatabase();
+        db = helper.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.TYPE, type);
         contentValues.put(Constants.DISTANCE, distance);
@@ -28,7 +28,7 @@ public class RecordedDatabase {
     }
 
     public Cursor getData(){
-        db = helper.getWritableDatabase();
+        db = helper.getReadableDatabase();
 
         String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
@@ -36,14 +36,14 @@ public class RecordedDatabase {
     }
 
     public int deleRow(String item){
-        SQLiteDatabase db = helper.getWritableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         String[] deteleItem = {item};
         int count = db.delete(Constants.TABLE_NAME, Constants.TYPE + "=?", deteleItem);
         return count;
     }
 
     public String getSelectedType(String type){
-        SQLiteDatabase db = helper.getWritableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
 
         String selection = Constants.TYPE + "='" + type + "'";

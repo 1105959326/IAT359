@@ -9,5 +9,5 @@ public class Constants {
     public static final String SPEED = "speed";
     public static final String TIME = "Time";
     public static final String CALORY = "Calory";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
 }

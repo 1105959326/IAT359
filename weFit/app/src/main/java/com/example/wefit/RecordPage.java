@@ -174,7 +174,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     }
 
     private void recordData() {
-        long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(), timeText.getText().toString(), speedText.getText().toString(), caloryText.getText().toString());
+        long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(), Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString());
     }
 
     @Override

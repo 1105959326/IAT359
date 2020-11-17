@@ -36,27 +36,20 @@ import java.io.IOException;
 import java.util.List;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
+    private ImageView ivHead;
     private TextView Distance, Time, Speed, Calory;
-  private ImageView ivHead;
-  private Button change, search;
-  private Bitmap head;
-  private static String path="/wefit/";
+    private Button change, search;
+    private Bitmap head;
+    private static String path = "/wefit/";
     private RecordedDatabase db;
+    private float totalDis, totalTime, totalSpeed, totalCal;
     HelperClass helper;
     private EditText search_type;
-
-
-
-
-
-
-
-
-
+    private HelperClass helperClass;
 
 
     @Override
-    public View onCreateView(   
+    public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
 
@@ -70,17 +63,19 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         findId(view);
         initView();
-
+        db = new RecordedDatabase(getContext());
+        helperClass = new HelperClass(getContext());
 
 
 //
 
     }
+
     public void onStart() {
         super.onStart();
         update();
-
     }
+
     private void findId(View view) {
         Distance = view.findViewById(R.id.Distance_t);
         Time = view.findViewById(R.id.Time_t);
@@ -95,20 +90,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
-
-
     private void initView() {
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
-        if(bt!=null){
+        if (bt != null) {
             @SuppressWarnings("deprecation")
             Drawable drawable = new BitmapDrawable(bt);
             ivHead.setImageDrawable(drawable);
-        }else{
+        } else {
 
         }
-
 
 
     }
@@ -128,18 +119,19 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
-        if (v.getId() == R.id.search_button){
-            if (search_type != null){
+        if (v.getId() == R.id.search_button) {
+            if (search_type != null) {
                 String queryResults = db.getSelectedType(search_type.getText().toString());
                 Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
             }
         }
     }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
 
-                    cropPhoto(data.getData());
+                cropPhoto(data.getData());
 
 
                 break;
@@ -148,7 +140,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     head = extras.getParcelable("data");
-                    if(head!=null){
+                    if (head != null) {
 
                         setPicToView(head);
                         ivHead.setImageBitmap(head);
@@ -160,7 +152,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
-    };
+    }
+
+    ;
 
     public void cropPhoto(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -175,6 +169,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("return-data", true);
         startActivityForResult(intent, 3);
     }
+
     private void setPicToView(Bitmap mBitmap) {
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
@@ -183,7 +178,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         FileOutputStream b = null;
         File file = new File(path);
         file.mkdirs();
-        String fileName =path + "head.jpg";
+        String fileName = path + "head.jpg";
         try {
             b = new FileOutputStream(fileName);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
@@ -202,23 +197,25 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public Cursor getData(){
-        db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
-        return cursor;
+    public void update() {
+        Cursor cursor = db.getData();
+        int index1 = cursor.getColumnIndex(Constants.TYPE);
+        int index2 = cursor.getColumnIndex(Constants.DISTANCE);
+        int index3 = cursor.getColumnIndex(Constants.TIME);
+        int index4 = cursor.getColumnIndex(Constants.SPEED);
+        int index5 = cursor.getColumnIndex(Constants.CALORY);
+        while(cursor.moveToNext()) {
+            totalDis += Float.parseFloat(cursor.getString(index2));
+            totalTime += Float.parseFloat(cursor.getString(index3));
+            totalSpeed += Float.parseFloat(cursor.getString(index4));
+            totalCal += Float.parseFloat(cursor.getString(index5));
+        }
+
+        Distance.setText(String.format("%.1f", totalDis));
+        Time.setText(String.format("%.0f", totalTime));
+        Speed.setText(String.format("%.0f", totalSpeed));
+        Calory.setText(String.format("%.0f", totalCal));
     }
-
-    public void update(){
-        int dis = getData().getColumnIndex("DISTANCE");
-        Distance.setText(dis);
-        int sp = getData().getColumnIndex("SPEED");
-        Speed.setText(sp);
-        int ti = getData().getColumnIndex("TIME");
-        Time.setText(ti);
-        int ca = getData().getColumnIndex("CALORY");
-        Calory.setText(ca);
-
-    }
+}
 
