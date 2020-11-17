@@ -33,7 +33,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     private Location originL, currentL;
     private LocationManager locationManager;
     private float final_distance = (float) 0.000;
-
+    private RecordedDatabase db;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -59,6 +59,8 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
                 millis = millis % 60;
 
                 timeText.setText(String.format("%02d:%02d:%02d", minutes, second, millis));
+
+
             }
 
             @Override
@@ -98,8 +100,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     private void activity(){
         stateText.setText("");
         typeText.setText(type);
-
-
+        db = new RecordedDatabase(this);
     }
 
     @Override
@@ -168,8 +169,12 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
     protected void onStop() {
 
         super.onStop();
-
+        recordData();
         sm.unregisterListener(this, sensorS);
+    }
+
+    private void recordData() {
+        long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(), timeText.getText().toString(), speedText.getText().toString(), caloryText.getText().toString());
     }
 
     @Override
