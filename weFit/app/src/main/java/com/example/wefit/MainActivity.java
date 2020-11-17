@@ -42,14 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.activity_window, new RecordingActivity());
         ft.commitAllowingStateLoss();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED){
             //ask for permission
