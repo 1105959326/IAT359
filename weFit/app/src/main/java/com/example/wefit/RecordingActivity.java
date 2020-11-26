@@ -1,22 +1,40 @@
 package com.example.wefit;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-public class RecordingActivity extends Fragment implements View.OnClickListener{
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
+public class RecordingActivity extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
     private Button runBtn, rideBtn, startBtn;
     private int state = 1;
     private Button firstButton;
     private SecondFragment secondFragment;
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     public View onCreateView(
@@ -29,9 +47,9 @@ public class RecordingActivity extends Fragment implements View.OnClickListener{
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         findId(view);
-
+        fetchLocation();
     }
 
     private void findId(View view){
@@ -70,5 +88,29 @@ public class RecordingActivity extends Fragment implements View.OnClickListener{
             }
         }
 
+    }
+    private void fetchLocation() {
+
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    currentLocation = location;
+                    Toast.makeText(getContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                    SupportMapFragment supportMapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.myMap);
+                    assert supportMapFragment != null;
+                    supportMapFragment.getMapAsync(RecordingActivity.this);
+                }
+            }
+        });
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+        googleMap.addMarker(markerOptions);
     }
 }
