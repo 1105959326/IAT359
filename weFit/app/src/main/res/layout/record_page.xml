@@ -57,8 +57,8 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="507dp"
-            android:layout_height="297dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center">
 
@@ -72,6 +72,29 @@
                 android:text="0.000"
                 android:textSize="65sp" />
 
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/openMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="map" />
+            </LinearLayout>
         </TableRow>
 
         <TableRow

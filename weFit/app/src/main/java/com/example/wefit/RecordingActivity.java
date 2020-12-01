@@ -97,6 +97,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
+                    if (!isAdded()) return;
                     Toast.makeText(getContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.myMap);
                     assert supportMapFragment != null;
@@ -110,7 +111,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
         googleMap.addMarker(markerOptions);
     }
 }

@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fm;
     private FragmentTransaction ft;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findButton();
         //setSupportActionBar(toolbar);
-
+        //findViewById(R.id.buttons).setVisibility(View.INVISIBLE);
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 

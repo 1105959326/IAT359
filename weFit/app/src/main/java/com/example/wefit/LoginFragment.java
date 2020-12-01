@@ -104,7 +104,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
                     getActivity().finish();
-
                     startActivity(new Intent(getActivity(), MainActivity.class));
                     return;
                 } else if ((spPsw != null && !TextUtils.isEmpty(spPsw) && !md5Psw.equals(spPsw))) {

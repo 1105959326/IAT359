@@ -1,6 +1,7 @@
 package com.example.wefit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,21 +21,27 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener, LocationListener {
 
-    private Button startBtn, resumeBtn, finishBtn;
+    private Button startBtn, resumeBtn, finishBtn, mapButton;
     private boolean state = false;
     private TextView  typeText, stateText, timeText, distanceText, speedText, caloryText;
     private String type;
     private SensorManager sm;
     private Sensor sensorS;
-    private int cnt, burnedCal;
+    private int cnt = 0, burnedCal;
     private CountDownTimer t;
     private Location originL, currentL;
     private LocationManager locationManager;
-    private float final_distance = (float) 0.000;
     private RecordedDatabase db;
+    private double speed = 0;
+    private List<LatLng> points = new ArrayList<LatLng>();
+    private float final_distance = (float) 0.000;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -82,6 +90,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         resumeBtn = findViewById(R.id.resume_button);
         finishBtn = findViewById(R.id.finish_btn);
         timeText = findViewById(R.id.time_text);
+        mapButton = findViewById(R.id.openMap);
 
         typeText = findViewById(R.id.activity_type);
         stateText = findViewById(R.id.activity_state);
@@ -92,6 +101,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         startBtn.setOnClickListener(this);
         resumeBtn.setOnClickListener(this);
         finishBtn.setOnClickListener(this);
+        mapButton.setOnClickListener(this);
 
         resumeBtn.setVisibility(View.INVISIBLE);
         finishBtn.setVisibility(View.INVISIBLE);
@@ -132,6 +142,16 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         if (v.getId() == R.id.finish_btn){
             t.cancel();
             finish();
+        }
+
+        if (v.getId() == R.id.openMap){
+            Intent i = new Intent(this, MapRecordPage.class);
+            i.putExtra("time", cnt);
+            i.putExtra("speed", speed);
+            i.putExtra("dist", final_distance);
+            i.putParcelableArrayListExtra("points", (ArrayList<? extends Parcelable>) points);
+            //t.cancel();
+            this.startActivity(i);
         }
     }
 
@@ -179,6 +199,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        points.add(new LatLng(location.getLatitude(), location.getLongitude()));
         if (originL == null) originL = location;
         else{
             currentL = location;
@@ -186,8 +207,9 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
             float distance = currentL.distanceTo(originL);
             originL = currentL;
             final_distance += distance;
+            speed = final_distance/cnt*60;
             distanceText.setText(String.format("%.3f", final_distance/1000));
-            speedText.setText(String.format("%.2f", final_distance/cnt*60));
+            speedText.setText(String.format("%.2f", speed));
             caloryText.setText(String.format("%.2f", final_distance/1000 * burnedCal));
         }
     }

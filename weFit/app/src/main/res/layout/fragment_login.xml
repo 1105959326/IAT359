@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--登录界面,用LinearLayout-->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg7"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_head"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="120dp"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/ic_launcher_round"/>
+        android:layout_marginTop="120dp"
+        android:background="@mipmap/ic_launcher_round" />
+    <!--输入框-->
     <!--输入框-->
     <EditText
         android:id="@+id/et_user_name"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="35dp"
 
         android:drawablePadding="10dp"
-        android:paddingLeft="8dp"
-        android:gravity="center_vertical"
         android:fontFamily="@font/russoone_regular"
+        android:gravity="center_vertical"
         android:hint="Enter User Name"
+        android:paddingLeft="8dp"
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
-        android:textSize="14sp"/>
-    <!--输入框-->
+        android:textSize="14sp" />
+
     <EditText
         android:id="@+id/et_psw"
         android:layout_width="fill_parent"
@@ -43,30 +42,30 @@
         android:layout_marginRight="35dp"
 
         android:drawablePadding="10dp"
-        android:paddingLeft="8dp"
+        android:fontFamily="@font/russoone_regular"
         android:gravity="center_vertical"
         android:hint="Enter Password"
         android:inputType="textPassword"
-        android:fontFamily="@font/russoone_regular"
+        android:paddingLeft="8dp"
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
     <!--按钮-->
     <Button
         android:id="@+id/btn_login"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="15dp"
 
-        android:text="Login"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_marginRight="35dp"
         android:fontFamily="@font/russoone_regular"
+        android:text="Login"
         android:textColor="@android:color/white"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
     <!--显示tv register , find_psw -->
     <LinearLayout
         android:layout_width="338dp"
@@ -77,6 +76,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
+        <!--layout_weight="1" layout_width="0dp"实现均分效果-->
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="0dp"
@@ -88,7 +88,7 @@
             android:text="Register"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
-        <!--layout_weight="1" layout_width="0dp"实现均分效果-->
+
         <TextView
             android:id="@+id/tv_find_psw"
             android:layout_width="0dp"
