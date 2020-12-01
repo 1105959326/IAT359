@@ -212,9 +212,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             totalCal += Float.parseFloat(cursor.getString(index5));
         }
 
+        long millis = (long) totalTime;
+        int second = (int)(millis/60);
+        int minutes = (int) (second/60);
+        second %= 60;
+        millis = millis % 60;
+
         Distance.setText(String.format("%.1f", totalDis));
-        Time.setText(String.format("%.0f", totalTime));
-        Speed.setText(String.format("%.0f", totalSpeed));
+        Time.setText(String.format("%02d:%02d:%02d", minutes, second, millis));
+        Speed.setText(String.format("%.1f", 1000 * totalDis/totalTime * 60));
         Calory.setText(String.format("%.0f", totalCal));
     }
 }
