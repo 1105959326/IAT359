@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ import com.google.android.gms.tasks.Task;
 
 public class RecordingActivity extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
-    private Button runBtn, rideBtn, startBtn;
+    private ImageButton runBtn, rideBtn, startBtn;
     private int state = 1;
     private Button firstButton;
     private SecondFragment secondFragment;

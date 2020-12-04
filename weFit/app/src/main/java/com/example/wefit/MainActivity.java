@@ -31,11 +31,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button recordButton, inforButton, gpsButton;
+    //initiliza the ImageButton
+    private ImageButton recordButton, inforButton, gpsButton;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -65,9 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findButton(){
-        recordButton =(Button) findViewById(R.id.record_button);
-        inforButton = (Button) findViewById(R.id.infor_button);
-        gpsButton =(Button) findViewById(R.id.gps_button);
+        recordButton =(ImageButton) findViewById(R.id.record_button);
+        inforButton = (ImageButton) findViewById(R.id.infor_button);
+        gpsButton =(ImageButton) findViewById(R.id.gps_button);
 
         recordButton.setOnClickListener(this);
         inforButton.setOnClickListener(this);
