@@ -15,6 +15,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,8 @@ import java.util.List;
 
 public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener, LocationListener {
 
-    private Button startBtn, resumeBtn, finishBtn, mapButton;
+    private Button startBtn, resumeBtn, finishBtn;
+    private ImageButton mapButton;
     private boolean state = false;
     private TextView  typeText, stateText, timeText, distanceText, speedText, caloryText;
     private String type;
