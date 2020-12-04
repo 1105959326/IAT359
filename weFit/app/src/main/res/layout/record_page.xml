@@ -88,8 +88,9 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    style="@style/Widget.AppCompat.Button.Borderless"
+                <Button
+                    android:background="@drawable/btn_capsule"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:id="@+id/openMap"
                     android:src="@drawable/gps2"
                     android:layout_width="wrap_content"

@@ -30,7 +30,7 @@ import java.util.List;
 public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener, LocationListener {
 
     private Button startBtn, resumeBtn, finishBtn;
-    private ImageButton mapButton;
+    private Button mapButton;
     private boolean state = false;
     private TextView  typeText, stateText, timeText, distanceText, speedText, caloryText;
     private String type;
