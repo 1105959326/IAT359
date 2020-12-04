@@ -45,8 +45,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="5" />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/startRec"
+                        android:src="@drawable/start"
+                        android:background="@drawable/btn_capsule"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
