@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //initiliza the ImageButton
     private ImageButton recordButton, inforButton, gpsButton;
     private FragmentManager fm;
     private FragmentTransaction ft;
