@@ -60,6 +60,7 @@
                 android:fontFamily="@font/russoone_regular"
                 android:src="@drawable/gps2"
                 android:text="GPS" />
+
         </LinearLayout>
     </LinearLayout>
 
