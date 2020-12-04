@@ -9,22 +9,24 @@
         android:layout_weight="10"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/run_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/russoone_regular"
+            android:src="@drawable/run2"
             android:text="Run" />
 
-        <Button
+        <ImageButton
             android:id="@+id/ride_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/russoone_regular"
+            android:src="@drawable/ride2"
             android:text="Ride" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

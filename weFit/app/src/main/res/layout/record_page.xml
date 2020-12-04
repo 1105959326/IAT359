@@ -4,7 +4,7 @@
     android:id="@+id/calories_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg10">
+    android:background="@drawable/new_bg2">
 
     <TextView
         android:id="@+id/textView2"
@@ -88,8 +88,10 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageButton
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:id="@+id/openMap"
+                    android:src="@drawable/gps2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -205,8 +207,9 @@
             android:layout_weight="2"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:id="@+id/resume_button"
+                android:src="@drawable/pause"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="216dp"
                 android:layout_height="68dp"
@@ -217,8 +220,9 @@
                 android:textSize="20sp"
                 android:visibility="visible" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/start_btn"
+                android:src="@drawable/start"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="202dp"
                 android:layout_height="68dp"
@@ -228,8 +232,9 @@
                 android:textColor="@color/myWhite"
                 android:textSize="20sp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/finish_btn"
+                android:src="@drawable/finish"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="222dp"
                 android:layout_height="69dp"
