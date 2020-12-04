@@ -54,6 +54,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/russoone_regular"
                 android:text="GPS" />
+
         </LinearLayout>
     </LinearLayout>
 
