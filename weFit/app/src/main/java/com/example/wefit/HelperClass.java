@@ -13,7 +13,8 @@ public class HelperClass extends SQLiteOpenHelper {
                     Constants.TABLE_NAME + " (" +
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.TYPE + " TEXT, " + Constants.DISTANCE + " TEXT, " +
-                    Constants.TIME + " TEXT, " + Constants.SPEED + " TEXT, " + Constants.CALORY + " TEXT );" ;
+                    Constants.TIME + " TEXT, " + Constants.SPEED + " TEXT, " + Constants.CALORY + " TEXT, " +
+                    Constants.POINT + "TEXT );" ;
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
 
     public HelperClass(Context context){

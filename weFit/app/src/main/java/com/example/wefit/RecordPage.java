@@ -23,19 +23,18 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordPage extends Activity implements View.OnClickListener, SensorEventListener, LocationListener {
+public class RecordPage extends Activity implements View.OnClickListener, LocationListener {
 
     private Button startBtn, resumeBtn, finishBtn;
     private Button mapButton;
     private boolean state = false;
     private TextView  typeText, stateText, timeText, distanceText, speedText, caloryText;
     private String type;
-    private SensorManager sm;
-    private Sensor sensorS;
     private int cnt = 0, burnedCal;
     private CountDownTimer t;
     private Location originL, currentL;
@@ -50,10 +49,6 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         setContentView(R.layout.record_page);
 
         findById();
-
-        sm = (SensorManager)getSystemService(SENSOR_SERVICE); //set sensor manager
-        sensorS = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); //get accelerometer
-
 
         type = getIntent().getStringExtra("state");
         burnedCal = getIntent().getIntExtra("burnedCal", 0);
@@ -157,46 +152,24 @@ public class RecordPage extends Activity implements View.OnClickListener, Sensor
         }
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-//        Sensor sensor = event.sensor;
-//        float[] values = event.values;
-//        int value = -1;
-//
-//        if (values.length > 0) {
-//            value = (int) values[0];
-//        }
-//
-//
-//        if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-//            stepNum++;
-//        }
-
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 
     @Override
     protected void onResume() {
 
         super.onResume();
-
-        sm.registerListener(this, sensorS, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
     protected void onStop() {
 
         super.onStop();
         recordData();
-        sm.unregisterListener(this, sensorS);
     }
 
     private void recordData() {
-        long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(), Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString());
+        Gson gson = new Gson();
+        String point_string = gson.toJson(points);
+        long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(),
+                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), point_string);
     }
 
     @Override

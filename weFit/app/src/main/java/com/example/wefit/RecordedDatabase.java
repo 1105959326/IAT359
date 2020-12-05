@@ -15,7 +15,7 @@ public class RecordedDatabase {
         helper = new HelperClass(context);
     }
 
-    public long insertData (String type, String distance, String time, String speed, String calories){
+    public long insertData (String type, String distance, String time, String speed, String calories, String mappoints){
         db = helper.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.TYPE, type);
@@ -23,6 +23,7 @@ public class RecordedDatabase {
         contentValues.put(Constants.TIME, time);
         contentValues.put(Constants.SPEED, speed);
         contentValues.put(Constants.CALORY, calories);
+        contentValues.put(Constants.POINT, mappoints);
         long id= db.insert(Constants.TABLE_NAME, null, contentValues);
         return id;
     }
@@ -30,7 +31,7 @@ public class RecordedDatabase {
     public Cursor getData(){
         db = helper.getReadableDatabase();
 
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY, Constants.POINT};
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
         return cursor;
     }
@@ -56,6 +57,7 @@ public class RecordedDatabase {
             int index3 = cursor.getColumnIndex(Constants.TIME);
             int index4 = cursor.getColumnIndex(Constants.SPEED);
             int index5 = cursor.getColumnIndex(Constants.CALORY);
+            int index6 = cursor.getColumnIndex(Constants.POINT);
             String typeA = cursor.getString(index1);
             String dist = cursor.getString(index2);
             String time = cursor.getString(index3);
