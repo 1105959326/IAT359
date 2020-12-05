@@ -61,6 +61,17 @@
                 android:src="@drawable/gps2"
                 android:text="GPS" />
 
+            <ImageButton
+                android:id="@+id/temp_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_capsule"
+                android:fontFamily="@font/russoone_regular"
+                android:src="@drawable/gps2"
+                android:text="GPS" />
+
         </LinearLayout>
     </LinearLayout>
 

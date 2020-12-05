@@ -37,7 +37,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     //initiliza the ImageButton
-    private ImageButton recordButton, inforButton, gpsButton;
+    private ImageButton recordButton, inforButton, gpsButton, tempButton;
+
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -70,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recordButton =(ImageButton) findViewById(R.id.record_button);
         inforButton = (ImageButton) findViewById(R.id.infor_button);
         gpsButton =(ImageButton) findViewById(R.id.gps_button);
+        tempButton = (ImageButton)findViewById(R.id.temp_button);
 
         recordButton.setOnClickListener(this);
         inforButton.setOnClickListener(this);
         gpsButton.setOnClickListener(this);
+        tempButton.setOnClickListener(this);
     }
 
     @Override
@@ -114,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.gps_button:
                 ft.replace(R.id.activity_window,new LoginFragment());
+                break;
+            case R.id.temp_button:
+                ft.replace(R.id.activity_window, new TempuratureFragment());
                 break;
             default:
                 break;
