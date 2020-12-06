@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.wefit.dummy.DummyContent;
+
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -47,10 +47,6 @@ public class RecordHistory extends Activity {
     private void findId(View view){
 
     }
-
-
-
-
 
 
     public ArrayList<String> update() {
