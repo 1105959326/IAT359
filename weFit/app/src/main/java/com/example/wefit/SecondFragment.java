@@ -92,7 +92,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         search.setOnClickListener(this);
         share = view.findViewById(R.id.share);
         share.setOnClickListener(this);
-        history = view.findViewById(R.id.goHistory);
+        history = view.findViewById(R.id.empty);
         history.setOnClickListener(this);
     }
 
@@ -132,12 +132,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
             }
         }
-        if (v.getId() == R.id.goHistory) {
-            Intent intent2 = new Intent();
-            intent2.setClass(getActivity(), RecordHistory.class);
-            startActivity(intent2);
 
-        }
+
+
         if (v.getId() == R.id.share) {
             Intent intent1 = new Intent(Intent.ACTION_PICK, null);
             intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
