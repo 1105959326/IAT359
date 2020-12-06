@@ -116,7 +116,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.change_button:
 
-                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+                Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT, null);
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
                 startActivityForResult(intent1, 1);
@@ -126,12 +126,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
-        if (v.getId() == R.id.search_button) {
-            if (search_type != null) {
-                String queryResults = db.getSelectedType(search_type.getText().toString());
-                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
-            }
-        }
+//        if (v.getId() == R.id.search_button) {
+//            if (search_type != null) {
+//                String queryResults = db.getSelectedType(search_type.getText().toString());
+//                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
+//            }
+//        }
 
 
 
