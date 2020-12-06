@@ -205,6 +205,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         int index3 = cursor.getColumnIndex(Constants.TIME);
         int index4 = cursor.getColumnIndex(Constants.SPEED);
         int index5 = cursor.getColumnIndex(Constants.CALORY);
+        int index6 = cursor.getColumnIndex(Constants.MAPPOINTS);
         while(cursor.moveToNext()) {
             totalDis += Float.parseFloat(cursor.getString(index2));
             totalTime += Float.parseFloat(cursor.getString(index3));

@@ -23,16 +23,16 @@ public class RecordedDatabase {
         contentValues.put(Constants.TIME, time);
         contentValues.put(Constants.SPEED, speed);
         contentValues.put(Constants.CALORY, calories);
-        contentValues.put(Constants.POINT, mappoints);
-        long id= db.insert(Constants.TABLE_NAME, null, contentValues);
+        contentValues.put(Constants.MAPPOINTS, mappoints);
+        long id = db.insert(Constants.TABLE_NAME, null, contentValues);
         return id;
     }
 
     public Cursor getData(){
         db = helper.getReadableDatabase();
 
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY, Constants.POINT};
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null,null, null, null, null);
+        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY, Constants.MAPPOINTS};
+        Cursor cursor = db.query(Constants.TABLE_NAME, null, null, null, null, null, null);
         return cursor;
     }
 
@@ -45,7 +45,7 @@ public class RecordedDatabase {
 
     public String getSelectedType(String type){
         SQLiteDatabase db = helper.getReadableDatabase();
-        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY};
+        String[] columns = {Constants.UID, Constants.TYPE, Constants.DISTANCE, Constants.TIME, Constants.SPEED, Constants.CALORY, Constants.MAPPOINTS};
 
         String selection = Constants.TYPE + "='" + type + "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection,null, null, null, null);
@@ -57,7 +57,7 @@ public class RecordedDatabase {
             int index3 = cursor.getColumnIndex(Constants.TIME);
             int index4 = cursor.getColumnIndex(Constants.SPEED);
             int index5 = cursor.getColumnIndex(Constants.CALORY);
-            int index6 = cursor.getColumnIndex(Constants.POINT);
+            int index6 = cursor.getColumnIndex(Constants.MAPPOINTS);
             String typeA = cursor.getString(index1);
             String dist = cursor.getString(index2);
             String time = cursor.getString(index3);

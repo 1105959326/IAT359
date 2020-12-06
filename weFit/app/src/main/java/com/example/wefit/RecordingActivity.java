@@ -99,7 +99,6 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
                 if (location != null) {
                     currentLocation = location;
                     if (!isAdded()) return;
-                    Toast.makeText(getContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.myMap);
                     assert supportMapFragment != null;
                     supportMapFragment.getMapAsync(RecordingActivity.this);
