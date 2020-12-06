@@ -12,9 +12,12 @@ public class HelperClass extends SQLiteOpenHelper {
             "CREATE TABLE "+
                     Constants.TABLE_NAME + " (" +
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    Constants.TYPE + " TEXT, " + Constants.DISTANCE + " TEXT, " +
-                    Constants.TIME + " TEXT, " + Constants.SPEED + " TEXT, " + Constants.CALORY + " TEXT, " +
-                    Constants.POINT + "TEXT );" ;
+                    Constants.TYPE + " TEXT, " +
+                    Constants.DISTANCE + " TEXT, " +
+                    Constants.SPEED + " TEXT, " +
+                    Constants.TIME + " TEXT, " +
+                    Constants.CALORY + " TEXT, " +
+                    Constants.MAPPOINTS + " TEXT);" ;
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
 
     public HelperClass(Context context){
@@ -34,12 +37,12 @@ public class HelperClass extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-       try {
-           db.execSQL(DROP_TABLE);
-           onCreate(db);
-           Toast.makeText(context, "onUpdate called", Toast.LENGTH_LONG).show();
-       }catch (SQLException e){
-           Toast.makeText(context, "cant update called", Toast.LENGTH_LONG).show();
-       }
+        try {
+            db.execSQL(DROP_TABLE);
+            onCreate(db);
+            Toast.makeText(context, "onUpgrade called", Toast.LENGTH_LONG).show();
+        } catch (SQLException e) {
+            Toast.makeText(context, "exception onUpgrade() db", Toast.LENGTH_LONG).show();
+        }
     }
 }

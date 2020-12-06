@@ -169,7 +169,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
         Gson gson = new Gson();
         String point_string = gson.toJson(points);
         long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(),
-                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), point_string);
+                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), Integer.toString(cnt));
     }
 
     @Override
