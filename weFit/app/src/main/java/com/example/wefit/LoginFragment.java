@@ -16,10 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
-    private TextView  tv_register;//返回键,显示的注册，找回密码
-    private Button btn_login;//登录按钮
-    private String userName, psw, spPsw;//获取的用户名，密码，加密密码
-    private EditText et_user_name, et_psw;//编辑框
+    private TextView  tv_register;//
+    private Button btn_login;//
+    private String userName, psw, spPsw;//
+    private EditText et_user_name, et_psw;//
 
     @Override
     public View onCreateView(

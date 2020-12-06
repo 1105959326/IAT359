@@ -274,6 +274,7 @@
 
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -283,6 +284,7 @@
 
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/goHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
