@@ -34,13 +34,14 @@ public class RecordHistory extends Activity {
     private HistoryAdapter historyAdapter = null;
     private ListView list_history;
     private HelperClass helperClass;
-//    private RecordedDatabase db = new RecordedDatabase("");
+    private RecordedDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_history_list);
         historyContext = RecordHistory.this;
+         db = new RecordedDatabase(this.historyContext);
         list_history = (ListView) findViewById(R.id.history_list_view);
         historyData = new LinkedList<History>();
 
@@ -49,42 +50,42 @@ public class RecordHistory extends Activity {
     }
     public void onStart() {
         super.onStart();
-//        update();
+        update();
     }
 
 
-//    public void update() {
-//        String distance_S;
-//        float distance_F;
-//        float time_set;
-//        String time_show;
-//        String speed;
-//        String cal;
-//
-//        Cursor cursor = db.getData();
-//        int index3 = cursor.getColumnIndex(Constants.DISTANCE);
-//        int index4 = cursor.getColumnIndex(Constants.TIME);
-//        int index5 = cursor.getColumnIndex(Constants.SPEED);
-//        int index6 = cursor.getColumnIndex(Constants.CALORY);
-//        while (cursor.moveToNext()) {
-//            distance_S = String.format("%.1f", Float.parseFloat(cursor.getString(index3)));
-//            distance_F = Float.parseFloat(cursor.getString(index3));
-//            time_set = Float.parseFloat(cursor.getString(index4));
-//            long millis = (long) time_set;
-//            int second = (int) (millis / 60);
-//            int minutes = (int) (second / 60);
-//            second %= 60;
-//            millis = millis % 60;
-//            time_show = String.format("%02d:%02d:%02d", minutes, second, millis);
-//            speed = String.format("%.1f", 1000 * distance_F / time_set * 60);
-//            cal = String.format("%.0f", Float.parseFloat(cursor.getString(index6)));
-//
-//            historyData.add(new History(distance_S, time_show, speed, cal));
-//
-//
-//        }
-//
-//
-//    }
+    public void update() {
+        String distance_S;
+        float distance_F;
+        float time_set;
+        String time_show;
+        String speed;
+        String cal;
+
+        Cursor cursor = db.getData();
+        int index3 = cursor.getColumnIndex(Constants.DISTANCE);
+        int index4 = cursor.getColumnIndex(Constants.TIME);
+        int index5 = cursor.getColumnIndex(Constants.SPEED);
+        int index6 = cursor.getColumnIndex(Constants.CALORY);
+        while (cursor.moveToNext()) {
+            distance_S = String.format("%.1f", Float.parseFloat(cursor.getString(index3)));
+            distance_F = Float.parseFloat(cursor.getString(index3));
+            time_set = Float.parseFloat(cursor.getString(index4));
+            long millis = (long) time_set;
+            int second = (int) (millis / 60);
+            int minutes = (int) (second / 60);
+            second %= 60;
+            millis = millis % 60;
+            time_show = String.format("%02d:%02d:%02d", minutes, second, millis);
+            speed = String.format("%.1f", 1000 * distance_F / time_set * 60);
+            cal = String.format("%.0f", Float.parseFloat(cursor.getString(index6)));
+
+            historyData.add(new History(distance_S, time_show, speed, cal));
+
+
+        }
+
+
+    }
 }
 
