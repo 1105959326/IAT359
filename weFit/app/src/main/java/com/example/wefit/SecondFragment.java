@@ -30,7 +30,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +44,7 @@ import java.util.List;
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private ImageView ivHead;
     private TextView Distance, Time, Speed, Calory;
-    private Button change, search, history, share;
+    private Button change, search,history,share;
     private Bitmap head;
     private static String path = "/wefit/";
     private RecordedDatabase db;
@@ -90,9 +93,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         search_type = view.findViewById(R.id.search_txt);
         search = view.findViewById(R.id.search_button);
         search.setOnClickListener(this);
-        share = view.findViewById(R.id.share);
+        share=view.findViewById(R.id.share);
         share.setOnClickListener(this);
-        history = view.findViewById(R.id.empty);
+        history=view.findViewById(R.id.empty);
         history.setOnClickListener(this);
     }
 
@@ -116,7 +119,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.change_button:
 
-                Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT, null);
+                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
                 startActivityForResult(intent1, 1);
@@ -126,15 +129,18 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 break;
         }
 
-//        if (v.getId() == R.id.search_button) {
-//            if (search_type != null) {
-//                String queryResults = db.getSelectedType(search_type.getText().toString());
-//                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
-//            }
-//        }
+        if (v.getId() == R.id.search_button) {
+            if (search_type != null) {
+                String queryResults = db.getSelectedType(search_type.getText().toString());
+                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
+            }
+        }
+        if (v.getId() == R.id.empty) {
+            Intent intent2 = new Intent();
+            intent2.setClass(getActivity(), RecordHistory.class);
+            startActivity(intent2);
 
-
-
+        }
         if (v.getId() == R.id.share) {
             Intent intent1 = new Intent(Intent.ACTION_PICK, null);
             intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -234,16 +240,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void update() {
         Cursor cursor = db.getData();
         int index1 = cursor.getColumnIndex(Constants.UID);
-        int index2 = cursor.getColumnIndex(Constants.TYPE);
+
         int index3 = cursor.getColumnIndex(Constants.DISTANCE);
         int index4 = cursor.getColumnIndex(Constants.TIME);
         int index5 = cursor.getColumnIndex(Constants.SPEED);
         int index6 = cursor.getColumnIndex(Constants.CALORY);
         while (cursor.moveToNext()) {
-            totalDis += Float.parseFloat(cursor.getString(index2));
-            totalTime += Float.parseFloat(cursor.getString(index3));
-            totalSpeed += Float.parseFloat(cursor.getString(index4));
-            totalCal += Float.parseFloat(cursor.getString(index5));
+            totalDis += Float.parseFloat(cursor.getString(index3));
+            totalTime += Float.parseFloat(cursor.getString(index4));
+            totalSpeed += Float.parseFloat(cursor.getString(index5));
+            totalCal += Float.parseFloat(cursor.getString(index6));
         }
 
         long millis = (long) totalTime;
@@ -257,5 +263,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         Speed.setText(String.format("%.1f", 1000 * totalDis / totalTime * 60));
         Calory.setText(String.format("%.0f", totalCal));
     }
+
+
+
 }
 
