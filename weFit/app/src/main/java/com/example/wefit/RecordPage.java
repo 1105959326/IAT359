@@ -45,14 +45,15 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     private float final_distance = (float) 0.000;
 
     public void onCreate(Bundle b) {
+        //create the layout
         super.onCreate(b);
         setContentView(R.layout.record_page);
 
         findById();
-
+        //get implicit information
         type = getIntent().getStringExtra("state");
         burnedCal = getIntent().getIntExtra("burnedCal", 0);
-
+        //set timer
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -73,7 +74,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
 
             }
         };
-
+        //get location service
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, this);
@@ -83,6 +84,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     }
 
     protected void findById(){
+        //find all view by id
         startBtn = findViewById(R.id.start_btn);
         resumeBtn = findViewById(R.id.resume_button);
         finishBtn = findViewById(R.id.finish_btn);
@@ -107,11 +109,13 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     private void activity(){
         stateText.setText("");
         typeText.setText(type);
+        //call the database
         db = new RecordedDatabase(this);
     }
 
     @Override
     public void onClick(View v) {
+        //change the state based on the button that user clicked
         if (v.getId() == R.id.start_btn){
             startBtn.setVisibility(View.GONE);
             resumeBtn.setVisibility(View.VISIBLE);
@@ -120,7 +124,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
             t.start();
             stateText.setText("Started");
         }
-
+        //start and pause timer
         if(v.getId() == R.id.resume_button){
             if(state) {
                 resumeBtn.setText("Resume");
@@ -137,10 +141,11 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
         }
 
         if (v.getId() == R.id.finish_btn){
+            //finish this activity
             t.cancel();
             finish();
         }
-
+        //start a the new activity, and sent data into the activity
         if (v.getId() == R.id.openMap){
             Intent i = new Intent(this, MapRecordPage.class);
             i.putExtra("time", cnt);
@@ -166,19 +171,20 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     }
 
     private void recordData() {
+        //record data into the table
         Gson gson = new Gson();
         String point_string = gson.toJson(points);
         long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(),
-                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), Integer.toString(cnt));
+                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), point_string);
     }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        //when location change, add the location to an arraylist, and update data to UI
         points.add(new LatLng(location.getLatitude(), location.getLongitude()));
         if (originL == null) originL = location;
         else{
             currentL = location;
-            //double distance = calculate(originL, currentL);
             float distance = currentL.distanceTo(originL);
             originL = currentL;
             final_distance += distance;
@@ -190,6 +196,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     }
 
     private double calculate(Location oL, Location fL) {
+        //calculate the dsistance that user traveled based two location by calculate the difference between two altitudes and two longitude
         double latA = Math.toRadians(oL.getAltitude());
         double lonA = Math.toRadians(oL.getLongitude());
         double latB = Math.toRadians(fL.getAltitude());

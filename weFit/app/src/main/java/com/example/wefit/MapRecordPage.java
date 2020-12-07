@@ -1,7 +1,6 @@
 package com.example.wefit;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,13 +9,11 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -27,7 +24,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,20 +50,22 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //create the layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_recordpage);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
         findById();
+        //get location service
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 1, this);
-
+        //get implicit data
         cnt = getIntent().getIntExtra("time", 0);
         points = getIntent().getParcelableArrayListExtra("points");
 
-
+        //set the timer to count time
         t = new CountDownTimer(Long.MAX_VALUE, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -92,6 +90,7 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
     }
 
     private void findById(){
+        //find all view by id
         backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,12 +108,14 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
     }
 
     private void fetchLocation() {
+        //check the permission
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
         }
+        //get user location
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
@@ -132,12 +133,11 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //when the map is ready, show user position on the map
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-       //MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
-        //googleMap.addMarker(markerOptions);
-
+        //set the polyline style on the map
         polyline = googleMap.addPolyline(new PolylineOptions().width(4).color(Color.BLACK));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -153,19 +153,10 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
         googleMap.setMyLocationEnabled(true);
         googleMa = googleMap;
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchLocation();
-                }
-                break;
-        }
-    }
 
     @Override
     public void onLocationChanged(Location location){
+        //when the location update, draw the polyline on map, and move the camera with user
         if(googleMa != null) {
             lastpos = new LatLng(location.getLatitude(), location.getLongitude());
             googleMa.moveCamera(CameraUpdateFactory.newLatLngZoom(lastpos, 18));

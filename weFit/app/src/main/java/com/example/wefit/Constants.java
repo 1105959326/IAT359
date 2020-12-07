@@ -1,6 +1,7 @@
 package com.example.wefit;
 
 public class Constants {
+    //define the table and columns
     public static final String DATABASE_NAME = "databasepoint";
     public static final String TABLE_NAME = "RECORDEDDATATABLE";
     public static final String UID = "_id";

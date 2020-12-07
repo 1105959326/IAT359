@@ -40,6 +40,7 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".MapRecordPage"></activity>
         <activity android:name=".RecordHistory"></activity>
+        <activity android:name=".MapDetail"></activity>
 
 
     </application>

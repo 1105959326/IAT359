@@ -17,8 +17,8 @@ public class HelperClass extends SQLiteOpenHelper {
                     Constants.SPEED + " TEXT, " +
                     Constants.TIME + " TEXT, " +
                     Constants.CALORY + " TEXT, " +
-                    Constants.MAPPOINTS + " TEXT);" ;
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
+                    Constants.MAPPOINTS + " TEXT);" ; //create the table
+    private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME; //define DROP_TABLE
 
     public HelperClass(Context context){
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
@@ -27,6 +27,7 @@ public class HelperClass extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //create the table, if cannot create the table then toast error message
         try{
             db.execSQL(CREATE_TABLE);
             Toast.makeText(context, "onCreate called", Toast.LENGTH_LONG).show();
@@ -37,6 +38,7 @@ public class HelperClass extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //upgrade the table, if cannot upgrade the table then toast error message
         try {
             db.execSQL(DROP_TABLE);
             onCreate(db);

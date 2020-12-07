@@ -46,12 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
 
 
         findButton();
-        //setSupportActionBar(toolbar);
-        //findViewById(R.id.buttons).setVisibility(View.INVISIBLE);
+
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
@@ -59,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.activity_window, new RecordingActivity());
         ft.commitAllowingStateLoss();
 
+        //ask for permission
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findButton(){
+        //find all view by id
         recordButton =(ImageButton) findViewById(R.id.record_button);
         inforButton = (ImageButton) findViewById(R.id.infor_button);
         gpsButton =(ImageButton) findViewById(R.id.gps_button);
@@ -80,32 +80,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View v) {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
 
+        //change the activity of fragment based on the button that user click
         switch (v.getId()){
             case R.id.record_button:
                 Log.d("debug", "123");

@@ -1,58 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/myBlue">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/distance_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textColor="@color/myWhite"
-        android:layout_marginLeft="20dp"
-
-        android:text="0"/>
-    <TextView
-        android:id="@+id/time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textColor="@color/myWhite"
-        android:layout_toRightOf="@+id/item_address_txt"
-        android:layout_marginLeft="20dp"
-
-        android:text="0"/>
-
-    <TextView
-        android:id="@+id/speed_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textColor="@color/myWhite"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-
-        android:text="0"/>
-
-    <TextView
-        android:id="@+id/cal_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-
-        android:textColor="@color/myWhite"
-
-        android:text="0"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="13dp"
-        android:background="@null"
-        android:text="map"/>
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/distance_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+
+            android:fontFamily="@font/russoone_regular"
+            android:text="Distance\n0"
+            android:textColor="@color/myWhite" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@+id/item_address_txt"
+            android:layout_weight="1"
+
+            android:fontFamily="@font/russoone_regular"
+            android:text="Time \n0"
+            android:textColor="@color/myWhite" />
+
+        <TextView
+            android:id="@+id/speed_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentRight="false"
+            android:layout_weight="1"
+
+            android:fontFamily="@font/russoone_regular"
+            android:text="speed\n 0"
+            android:textColor="@color/myWhite" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cal_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+
+            android:fontFamily="@font/russoone_regular"
+            android:text="Cal burned\n0"
+            android:textColor="@color/myWhite" />
+
+        <Button
+            android:id="@+id/route"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="@font/russoone_regular"
+            android:text="ROUTE"
+            android:textSize="13dp" />
+    </LinearLayout>
 
 </LinearLayout>
     <!-- line 1-->

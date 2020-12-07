@@ -5,15 +5,17 @@ public class History {
     private String time;
     private String speed;
     private String cal;
+    private String points;
 
 public History(){
 
 }
-public History(String distance,String time,String speed,String cal){
+public History(String distance,String time,String speed,String cal, String points){
     this.distance=distance;
     this.time = time;
     this.speed = speed;
     this.cal=cal;
+    this.points = points;
 
 }
 public String getDistance_His(){
@@ -27,5 +29,8 @@ public String getTime_His(){
     }
     public String getCal(){
         return cal;
+    }
+    public String getPoints(){
+        return points;
     }
 }

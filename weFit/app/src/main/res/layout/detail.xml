@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/activityMap"
+        android:id="@+id/activityMapRoute"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,12 +33,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/back_button"
-                android:background="@drawable/btn_capsule"
+                android:id="@+id/back_buttonroute"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/btn_capsule"
                 android:fontFamily="@font/russoone_regular"
                 android:text="back" />
         </LinearLayout>
@@ -46,53 +46,62 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="2" >
+
+        </TableRow>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
             android:layout_weight="10"
             android:background="@color/colorAccent"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/distance_txtroute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_weight="1"
+
                 android:fontFamily="@font/russoone_regular"
-                android:text="Time"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="10"
-            android:background="@color/colorAccent"
-            android:orientation="horizontal">
+                android:text="Distance\n0"
+                android:textColor="@color/myWhite" />
 
             <TextView
-                android:id="@+id/mapTime"
+                android:id="@+id/time_textroute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/russoone_regular"
-                android:text="00:00:00"
-                android:textAlignment="center"
-                android:textSize="24sp" />
 
+                android:layout_toRightOf="@+id/item_address_txt"
+                android:layout_weight="1"
+
+                android:fontFamily="@font/russoone_regular"
+                android:text="Time \n0"
+                android:textColor="@color/myWhite" />
+
+            <TextView
+                android:id="@+id/speed_textroute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentRight="false"
+                android:layout_weight="1"
+
+                android:fontFamily="@font/russoone_regular"
+                android:text="speed\n 0"
+                android:textColor="@color/myWhite" />
+
+            <TextView
+                android:id="@+id/cal_textroute"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"
+
+                android:fontFamily="@font/russoone_regular"
+                android:text="Cal burned\n0"
+                android:textColor="@color/myWhite" />
         </LinearLayout>
 
     </LinearLayout>

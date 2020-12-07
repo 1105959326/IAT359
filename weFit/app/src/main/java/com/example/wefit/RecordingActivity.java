@@ -54,6 +54,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
     }
 
     private void findId(View view){
+        //find all view by id
         runBtn = view.findViewById(R.id.run_button);
         rideBtn = view.findViewById(R.id.ride_button);
         startBtn = view.findViewById(R.id.startRec);
@@ -65,13 +66,14 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        //check the type of exercise that user select
         if(v.getId() == R.id.run_button){
             state = 1;
         }
         if(v.getId() == R.id.ride_button){
             state = 2;
         }
-
+        //start recording activity
         if(v.getId() == R.id.startRec){
             if (state == 1){
 
@@ -91,12 +93,13 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
 
     }
     private void fetchLocation() {
-
+        //find the postion of user
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
+                    //when the position is not null, show the map on the fragment
                     currentLocation = location;
                     if (!isAdded()) return;
                     SupportMapFragment supportMapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.myMap);
@@ -108,6 +111,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //update the location of user and show the marker on the map
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I am here!");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
