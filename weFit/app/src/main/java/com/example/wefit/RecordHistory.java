@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,18 +56,15 @@ public class RecordHistory extends Activity {
         historyAdapter = new HistoryAdapter((LinkedList<History>) historyData, historyContext);
         list_history.setAdapter(historyAdapter);
 
-//        list_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent i = new Intent(historyContext, MapDetail.class);
-//                i.putExtra("time", distance_S);
-//                i.putExtra("speed", speed);
-//                i.putExtra("dist", time_show);
-//                i.putExtra("cal", cal);
-//                i.putExtra("points", points);
-//                startActivity(i);
-//            }
-//        });
+        Button back = findViewById(R.id.back_buttonlist);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                setResult(RESULT_OK, i);
+                finish();
+            }
+        });
     }
     public void onStart() {
         super.onStart();
@@ -78,6 +76,7 @@ public class RecordHistory extends Activity {
 
 
         Cursor cursor = db.getData();
+        int index2 = cursor.getColumnIndex(Constants.TYPE);
         int index3 = cursor.getColumnIndex(Constants.DISTANCE);
         int index4 = cursor.getColumnIndex(Constants.TIME);
         int index5 = cursor.getColumnIndex(Constants.SPEED);
@@ -96,7 +95,7 @@ public class RecordHistory extends Activity {
             speed = String.format("%.1f", 1000 * distance_F / time_set * 60);
             cal = String.format("%.0f", Float.parseFloat(cursor.getString(index6)));
             points = cursor.getString(index7);
-            historyData.add(new History(distance_S, time_show, speed, cal, points));
+            historyData.add(new History(cursor.getString(index2), distance_S, time_show, speed, cal, points));
 
 
         }

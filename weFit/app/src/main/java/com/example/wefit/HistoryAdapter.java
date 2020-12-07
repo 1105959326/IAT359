@@ -50,7 +50,7 @@ public class HistoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos  = position;
         convertView = LayoutInflater.from(historyContext).inflate(R.layout.each_history,parent,false);
-
+        TextView txt_type = (TextView) convertView.findViewById(R.id.type_history);
         TextView txt_distance = (TextView) convertView.findViewById(R.id.distance_txt);
         TextView txt_time = (TextView) convertView.findViewById(R.id.time_text);
         TextView txt_speed = (TextView) convertView.findViewById(R.id.speed_text);
@@ -65,9 +65,11 @@ public class HistoryAdapter extends BaseAdapter {
                 i.putExtra("dist", historyData.get(pos).getDistance_His());
                 i.putExtra("cal", historyData.get(pos).getCal());
                 i.putExtra("points", historyData.get(pos).getPoints());
+                i.putExtra("type", historyData.get(pos).getType());
                 historyContext.startActivity(i);
             }
         });
+        txt_type.setText("Type\n" + historyData.get(position).getType());
         txt_distance.setText("Distance\n" + historyData.get(position).getDistance_His());
         txt_time.setText("Time\n" + historyData.get(position).getTime_His());
         txt_speed.setText("Speed\n" + historyData.get(position).getSpeed_His());

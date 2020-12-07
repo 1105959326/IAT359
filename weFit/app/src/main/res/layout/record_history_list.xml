@@ -5,6 +5,16 @@
     android:background="@drawable/new_bg4">
 
 
+    <Button
+        android:id="@+id/back_buttonlist"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/btn_capsule"
+        android:fontFamily="@font/russoone_regular"
+        android:text="back" />
+
     <ListView
         android:id="@+id/history_list_view"
         android:layout_width="match_parent"

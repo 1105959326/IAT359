@@ -172,10 +172,17 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
 
     private void recordData() {
         //record data into the table
+        ArrayList<String> stringlist = new ArrayList<String>();
+        String s = "";
+        for (int i = 0; i < points.size();i++){
+            stringlist.add(String.valueOf(points.get(i).latitude));
+            stringlist.add(String.valueOf(points.get(i).longitude));
+            s += String.valueOf(points.get(i).latitude) + ", "+ String.valueOf(points.get(i).longitude) + ",";
+        }
         Gson gson = new Gson();
-        String point_string = gson.toJson(points);
+        String point_string = gson.toJson(stringlist);
         long id = db.insertData(typeText.getText().toString(), distanceText.getText().toString(),
-                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), point_string);
+                Integer.toString(cnt), speedText.getText().toString(), caloryText.getText().toString(), s);
     }
 
     @Override
