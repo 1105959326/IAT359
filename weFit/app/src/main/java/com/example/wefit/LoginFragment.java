@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         });
 
 
-        //登录按钮的点击事件
+        //
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

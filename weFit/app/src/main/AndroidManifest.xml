@@ -25,22 +25,28 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA3ZhZt9FOFe-hVQfzMvlvXFftSTx9gW2w"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RecordPage"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".MapRecordPage"></activity>
         <activity android:name=".RecordHistory"></activity>
         <activity android:name=".MapDetail"></activity>
+        <activity
+        android:name=".Launch"
+        >
+
+        <intent-filter>
+
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
 
     </application>
