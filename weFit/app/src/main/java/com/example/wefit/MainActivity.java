@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //find all view by id
         recordButton =(ImageButton) findViewById(R.id.record_button);
         inforButton = (ImageButton) findViewById(R.id.infor_button);
-        gpsButton =(ImageButton) findViewById(R.id.gps_button);
+        //gpsButton =(ImageButton) findViewById(R.id.gps_button);
         tempButton = (ImageButton)findViewById(R.id.temp_button);
 
         recordButton.setOnClickListener(this);
         inforButton.setOnClickListener(this);
-        gpsButton.setOnClickListener(this);
+        //gpsButton.setOnClickListener(this);
         tempButton.setOnClickListener(this);
     }
 
@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.infor_button:
                 ft.replace(R.id.activity_window,new SecondFragment());
                 break;
-            case R.id.gps_button:
-                ft.replace(R.id.activity_window,new LoginFragment());
-                break;
+//            case R.id.gps_button:
+//                ft.replace(R.id.activity_window,new LoginFragment());
+//                break;
             case R.id.temp_button:
                 ft.replace(R.id.activity_window, new TempuratureFragment());
                 break;

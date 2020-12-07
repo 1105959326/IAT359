@@ -317,8 +317,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:fontFamily="@font/russoone_regular"
+                    android:hint="Enter Type"
                     android:inputType="textPersonName"
-                    android:text="Enter Type"
                     android:textColor="@color/cardview_dark_background" />
             </LinearLayout>
 

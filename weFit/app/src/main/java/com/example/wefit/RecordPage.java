@@ -167,7 +167,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     protected void onStop() {
 
         super.onStop();
-        recordData();
+        if(cnt > 0)recordData();
     }
 
     private void recordData() {
