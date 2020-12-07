@@ -131,8 +131,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         if (v.getId() == R.id.search_button) {
             if (search_type != null) {
-                String queryResults = db.getSelectedType(search_type.getText().toString());
-                Toast.makeText(getContext(), queryResults, Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getActivity(), RecordHistory.class);
+                i.putExtra("search", search_type.getText().toString());
+                startActivity(i);
             }
         }
         if (v.getId() == R.id.empty) {
@@ -239,7 +240,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     public void update() {
         Cursor cursor = db.getData();
-        int index1 = cursor.getColumnIndex(Constants.UID);
 
         int index3 = cursor.getColumnIndex(Constants.DISTANCE);
         int index4 = cursor.getColumnIndex(Constants.TIME);

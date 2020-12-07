@@ -37,6 +37,7 @@ public class RecordHistory extends Activity {
     String time_show;
     String speed;
     String cal, points;
+    Cursor cursor;
     private List<History> historyData = null;
     private Context historyContext;
     private HistoryAdapter historyAdapter = null;
@@ -68,14 +69,16 @@ public class RecordHistory extends Activity {
     }
     public void onStart() {
         super.onStart();
+        if (getIntent().getStringExtra("search") == null) cursor = db.getData();
+        else{
+            cursor = db.getSelectedType(getIntent().getStringExtra("search"));
+        }
         update();
     }
 
 
     public void update() {
 
-
-        Cursor cursor = db.getData();
         int index2 = cursor.getColumnIndex(Constants.TYPE);
         int index3 = cursor.getColumnIndex(Constants.DISTANCE);
         int index4 = cursor.getColumnIndex(Constants.TIME);
@@ -96,10 +99,10 @@ public class RecordHistory extends Activity {
             cal = String.format("%.0f", Float.parseFloat(cursor.getString(index6)));
             points = cursor.getString(index7);
             historyData.add(new History(cursor.getString(index2), distance_S, time_show, speed, cal, points));
-
-
         }
+    }
 
+    public void selectData(){
 
     }
 }

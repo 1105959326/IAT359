@@ -40,8 +40,10 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
     LatLng points;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //create the layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail);
+        //find textview and add string to that
         type = findViewById(R.id.type_route);
         dist = findViewById(R.id.distance_txtroute);
         time = findViewById(R.id.time_textroute);
@@ -52,12 +54,11 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
         time.setText("Time\n" + getIntent().getStringExtra("time"));
         cal.setText("Cal Burned\n" + getIntent().getStringExtra("cal"));
         speed.setText("Speed\n" + getIntent().getStringExtra("speed"));
+
+        //get points string and convert to double
         String p = getIntent().getStringExtra("points");
         int x = 0;
         String[] points = p.split(",");
-
-
-        Log.d("debug11", String.valueOf(points.length));
         while (x < points.length){
 
             if ( points[x].length() > 1 && points[x + 1].length() > 1){
@@ -68,7 +69,7 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
             else break;
         }
 
-
+        //call location listener
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -82,7 +83,7 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
-
+        //set the back button
         Button back = findViewById(R.id.back_buttonroute);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +97,16 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //draw polylines one map
         Polyline polyline = googleMap.addPolyline(new PolylineOptions().width(4).color(Color.BLACK));
-        polyline.setPoints(postions);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getCenterOfPolygon(postions), 15));
+        if(postions.size() > 2){
+            polyline.setPoints(postions);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getCenterOfPolygon(postions), 15));
+        }
     }
 
     private static LatLng getCenterOfPolygon(List<LatLng> latLngList) {
+        //calculate the center point of the polyline
         double[] centroid = {0.0, 0.0};
         for (int i = 0; i < latLngList.size(); i++) {
             centroid[0] += latLngList.get(i).latitude;
