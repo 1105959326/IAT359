@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        LinearLayout layout=(LinearLayout)findViewById(R.id.button_activity);
+        layout.setVisibility(View.VISIBLE);
 
         findButton();
 
@@ -68,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         int id = getIntent().getIntExtra("name", 0);
         if (id == 1) {
+            LinearLayout layout1=(LinearLayout)findViewById(R.id.button_activity);
+            layout1.setVisibility(View.INVISIBLE);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.activity_window,new LoginFragment())

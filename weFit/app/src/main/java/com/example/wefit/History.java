@@ -1,6 +1,6 @@
 package com.example.wefit;
 
-public class History {
+public class History {//create a class to store the each history detaill
     private String distance;
     private String time;
     private String speed;
@@ -21,7 +21,7 @@ public History(String type, String distance,String time,String speed,String cal,
 }
 public String getDistance_His(){
     return distance;
-}
+}// set the function can be used in other class
 public String getTime_His(){
     return time;
 }
