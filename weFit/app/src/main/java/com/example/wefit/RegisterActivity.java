@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
         boolean has_userName=false;
 
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
-        //获取密码
+
         String spPsw=sp.getString(userName, "");
 
         if(!TextUtils.isEmpty(spPsw)) {
@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
         return has_userName;
     }
     /**
-     * 保存账号和密码到SharedPreferences中SharedPreferences
+     * saave username SharedPreferences中SharedPreferences
      */
     private void saveRegisterInfo(String userName,String psw){
         String md5Psw = MD5Utils.md5(psw);
