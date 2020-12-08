@@ -99,6 +99,7 @@ public class RecordingActivity extends Fragment implements View.OnClickListener,
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
+
                     //when the position is not null, show the map on the fragment
                     currentLocation = location;
                     if (!isAdded()) return;

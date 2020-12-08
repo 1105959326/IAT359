@@ -132,7 +132,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         Calory = view.findViewById(R.id.Calory_t);
         change = (Button) view.findViewById(R.id.change_button);
 
-        clear.setOnClickListener(this);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
         search_type = view.findViewById(R.id.search_txt);

@@ -59,15 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.activity_window, new RecordingActivity());
         ft.commitAllowingStateLoss();
 
-        //ask for permission
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            return;
 
-
-        }
         int id = getIntent().getIntExtra("name", 0);
         if (id == 1) {
             LinearLayout layout1=(LinearLayout)findViewById(R.id.button_activity);
