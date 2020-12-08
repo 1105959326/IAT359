@@ -131,7 +131,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         Speed = view.findViewById(R.id.Speed_t);
         Calory = view.findViewById(R.id.Calory_t);
         change = (Button) view.findViewById(R.id.change_button);
-        clear = (Button) view.findViewById(R.id.clear);
+
         clear.setOnClickListener(this);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
@@ -235,9 +235,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
 
         }
-        if(v.getId() == R.id.clear){
-            db.clearData();
-        }
+
 
     }
     public void check(View v){

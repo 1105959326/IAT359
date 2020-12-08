@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-
+android:layout_weight="3"
 
     android:padding="5dp">
 
@@ -48,6 +48,7 @@
         android:id="@+id/step_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_below="@+id/header_section"
         android:gravity="center">
 
@@ -87,6 +88,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_weight="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/step_section">
@@ -189,7 +191,7 @@
                 android:text="Your body"
                 android:textColor="@color/colorAccent" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -199,16 +201,16 @@
                     android:id="@+id/first_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
+
+
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    >
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/height" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -225,17 +227,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
+
                     android:layout_toRightOf="@id/first_layout"
-                    android:gravity="center_vertical"
+
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                   >
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/kg" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -250,19 +252,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+
                     android:layout_weight="1"
                     android:layout_centerVertical="true"
 
                     android:layout_toRightOf="@id/second_layout"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+
+                    >
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/mas" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -275,13 +277,15 @@
                 </LinearLayout>
 
 
-            </RelativeLayout>
-
+            </LinearLayout>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content">
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/russoone_regular"
@@ -292,12 +296,22 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/russoone_regular"
                 android:text="HISTORY" />
-
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear"
+        android:fontFamily="@font/russoone_regular"
+        android:text="Empty"/>
+</LinearLayout>
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
