@@ -107,12 +107,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
         }
 
-
-
-
-
-//
-
     }
 
     public void onStart() {
@@ -286,14 +280,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
-
-
-//
-
-
-
-
-
 
                 break;
 
