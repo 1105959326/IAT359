@@ -57,7 +57,7 @@ import static java.text.DateFormat.DEFAULT;
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private ImageView ivHead;
     private TextView Distance, Time, Speed, Calory;
-    private Button change, search,history,share;
+    private Button change, search,history,share,clear;
     private ImageButton icon1,icon2,icon3,icon4,icon5,icon6;
     private Bitmap head;
     private static String path = "weFit/";
@@ -131,6 +131,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         Speed = view.findViewById(R.id.Speed_t);
         Calory = view.findViewById(R.id.Calory_t);
         change = (Button) view.findViewById(R.id.change_button);
+        clear = (Button) view.findViewById(R.id.clear);
+        clear.setOnClickListener(this);
         change.setOnClickListener(this);
         ivHead = (ImageView) view.findViewById(R.id.iv_head);
         search_type = view.findViewById(R.id.search_txt);
@@ -232,6 +234,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             startActivityForResult(intent1, 4);//set the result code as 4
 
 
+        }
+        if(v.getId() == R.id.clear){
+            db.clearData();
         }
 
     }
