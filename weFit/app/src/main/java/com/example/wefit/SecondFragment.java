@@ -63,7 +63,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private EditText search_type;
     private HelperClass helperClass;
-
+    private boolean click=false;
+    LinearLayout layout1;
 
     @Override
     public View onCreateView(
@@ -82,6 +83,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         initView();
         db = new RecordedDatabase(getContext());
         helperClass = new HelperClass(getContext());
+        layout1=(LinearLayout)view.findViewById(R.id.pop);
+        layout1.setVisibility(View.INVISIBLE);
+
+
 
 
 
@@ -93,10 +98,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         update();
 
+
     }
+
 
 //get the elements in xml and set the click listener
     private void findId(View view) {
+
         Distance = view.findViewById(R.id.Distance_t);
         Time = view.findViewById(R.id.Time_t);
         Speed = view.findViewById(R.id.Speed_t);
@@ -146,48 +154,44 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+
         switch (v.getId()) {
             case R.id.icon_1:
                 ivHead.setImageResource(R.drawable.icon1);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
+                layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_2:
                 ivHead.setImageResource(R.drawable.icon2);
+                layout1.setVisibility(View.INVISIBLE);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
                 break;
             case R.id.icon_3:
                 ivHead.setImageResource(R.drawable.icon3);
+                layout1.setVisibility(View.INVISIBLE);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
+
                 break;
             case R.id.icon_4:
                 ivHead.setImageResource(R.drawable.icon4);
+                layout1.setVisibility(View.INVISIBLE);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
                 break;
             case R.id.icon_5:
                 ivHead.setImageResource(R.drawable.icon5);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
+                layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_6:
                 ivHead.setImageResource(R.drawable.icon6);
 
-                popupLayout.dismiss();
-                popupLayout.hide();
+                layout1.setVisibility(View.INVISIBLE);
                 break;
 
             case R.id.change_button:
 
-                popupLayout.show();
+                layout1.setVisibility(View.VISIBLE);
+
 
 //                boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 //                Intent getAlbum;
@@ -205,13 +209,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
             default:
                 break;
-        }
-        if(v.getId() ==R.id.icon_1){
-            ivHead.setImageResource(R.drawable.icon1);
-
-            popupLayout.dismiss();
-            popupLayout.hide();
-
         }
 
         if (v.getId() == R.id.search_button) {
