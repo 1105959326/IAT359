@@ -86,10 +86,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         layout1=(LinearLayout)view.findViewById(R.id.pop);
         layout1.setVisibility(View.INVISIBLE);
 
+        
 
-
-
-
+        ivHead.setImageResource(70036);
 //
 
     }
@@ -276,14 +275,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
-
-
-//
-
-
-
-
-
 
                 break;
 

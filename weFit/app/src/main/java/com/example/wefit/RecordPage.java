@@ -143,6 +143,7 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
         if (v.getId() == R.id.finish_btn){
             //finish this activity
             t.cancel();
+            if(cnt > 0)recordData();
             finish();
         }
         //start a the new activity, and sent data into the activity
@@ -167,8 +168,10 @@ public class RecordPage extends Activity implements View.OnClickListener, Locati
     protected void onStop() {
 
         super.onStop();
-        if(cnt > 0)recordData();
+
     }
+
+
 
     private void recordData() {
         //record data into the table
