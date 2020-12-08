@@ -81,7 +81,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         update();
     }
-
+//get the elements in xml and set the click listener
     private void findId(View view) {
         Distance = view.findViewById(R.id.Distance_t);
         Time = view.findViewById(R.id.Time_t);
@@ -99,7 +99,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         history.setOnClickListener(this);
     }
 
-
+//set the head icon as you have saved. if not use the default icon
     private void initView() {
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
@@ -119,10 +119,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.change_button:
 
-                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
-                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                Intent intent1 = new Intent(Intent.ACTION_PICK, null);//open the album
+                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//get the select picture `s uri as data
 
-                startActivityForResult(intent1, 1);
+                startActivityForResult(intent1, 1); //set the result code as 1
                 break;
 
             default:
@@ -138,15 +138,15 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         }
         if (v.getId() == R.id.empty) {
             Intent intent2 = new Intent();
-            intent2.setClass(getActivity(), RecordHistory.class);
+            intent2.setClass(getActivity(), RecordHistory.class);// go to the record history page
             startActivity(intent2);
 
         }
         if (v.getId() == R.id.share) {
-            Intent intent1 = new Intent(Intent.ACTION_PICK, null);
-            intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            Intent intent1 = new Intent(Intent.ACTION_PICK, null);//open the album
+            intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//get the select picture `s uri as data
 
-            startActivityForResult(intent1, 4);
+            startActivityForResult(intent1, 4);//set the result code as 4
 
 
         }
@@ -156,7 +156,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (requestCode) {
             case 1:
 
-                cropPhoto(data.getData());
+                cropPhoto(data.getData());// run the crop function
 
 
                 break;
@@ -167,7 +167,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                     head = extras.getParcelable("data");
                     if (head != null) {
 
-                        setPicToView(head);
+                        setPicToView(head);//get the data of picture and set the icon as the picture after crop
                         ivHead.setImageBitmap(head);
                     }
                 }
@@ -177,7 +177,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 Intent intent1 = new Intent(Intent.ACTION_SEND);
                 intent1.setType("image/*");
 //            intent1.addCategory(Intent.CATEGORY_OPENABLE);
-                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//share the image as the output
                 intent1.putExtra(Intent.EXTRA_STREAM, uri);
 
                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -204,13 +204,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
 
-        intent.putExtra("outputX", 150);
+        intent.putExtra("outputX", 150);//set the size as 150*150
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, 3);
     }
 
-    private void setPicToView(Bitmap mBitmap) {
+    private void setPicToView(Bitmap mBitmap) {//store the pic to the local file and use the picture as icon
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
             return;
@@ -239,26 +239,26 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
 
     public void update() {
-        Cursor cursor = db.getData();
+        Cursor cursor = db.getData();//connect to the database
 
         int index3 = cursor.getColumnIndex(Constants.DISTANCE);
         int index4 = cursor.getColumnIndex(Constants.TIME);
         int index5 = cursor.getColumnIndex(Constants.SPEED);
         int index6 = cursor.getColumnIndex(Constants.CALORY);
         while (cursor.moveToNext()) {
-            totalDis += Float.parseFloat(cursor.getString(index3));
+            totalDis += Float.parseFloat(cursor.getString(index3));//transfer the datatype
             totalTime += Float.parseFloat(cursor.getString(index4));
             totalSpeed += Float.parseFloat(cursor.getString(index5));
             totalCal += Float.parseFloat(cursor.getString(index6));
         }
 
-        long millis = (long) totalTime;
+        long millis = (long) totalTime;//set the time show type
         int second = (int) (millis / 60);
         int minutes = (int) (second / 60);
         second %= 60;
         millis = millis % 60;
 
-        Distance.setText(String.format("%.1f", totalDis));
+        Distance.setText(String.format("%.1f", totalDis));//set the distance type
         Time.setText(String.format("%02d:%02d:%02d", minutes, second, millis));
         Speed.setText(String.format("%.1f", 1000 * totalDis / totalTime * 60));
         Calory.setText(String.format("%.0f", totalCal));

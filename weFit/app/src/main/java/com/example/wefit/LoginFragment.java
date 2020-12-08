@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);// go to register activity
                 startActivityForResult(intent,1);
             }
         });
@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-                userName = et_user_name.getText().toString().trim();
+                userName = et_user_name.getText().toString().trim();//transfer username
                 psw = et_psw.getText().toString().trim();
 
                 String md5Psw = MD5Utils.md5(psw);
@@ -116,9 +116,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    /**
-     * 从SharedPreferences中根据用户名读取密码
-     */
+   // get the user_name and password from the SharedPreferences
+
     private String readPsw(String userName) {
 
         SharedPreferences sp = getActivity().getSharedPreferences("loginInfo", getActivity().MODE_PRIVATE);
@@ -126,9 +125,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return sp.getString(userName, "");
     }
 
-    /**
-     * 保存登录状态和登录用户名到SharedPreferences中
-     */
+
+    //save the login in statement and username to SharedPreferences中
+
     private void saveLoginStatus(boolean status, String userName) {
 
         SharedPreferences sp = getActivity().getSharedPreferences("loginInfo", getActivity().MODE_PRIVATE);

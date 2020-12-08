@@ -52,7 +52,7 @@ public class RecordHistory extends Activity {
         historyContext = RecordHistory.this;
          db = new RecordedDatabase(this.historyContext);
         list_history = (ListView) findViewById(R.id.history_list_view);
-        historyData = new LinkedList<History>();
+        historyData = new LinkedList<History>();// set up a linked list store the History type object
 
         historyAdapter = new HistoryAdapter((LinkedList<History>) historyData, historyContext);
         list_history.setAdapter(historyAdapter);
@@ -86,7 +86,7 @@ public class RecordHistory extends Activity {
         int index6 = cursor.getColumnIndex(Constants.CALORY);
         int index7 = cursor.getColumnIndex(Constants.MAPPOINTS);
         while (cursor.moveToNext()) {
-            distance_S = String.format("%.1f", Float.parseFloat(cursor.getString(index3)));
+            distance_S = String.format("%.1f", Float.parseFloat(cursor.getString(index3)));//get two different data type of distance one for set text one for calculate
             distance_F = Float.parseFloat(cursor.getString(index3));
             time_set = Float.parseFloat(cursor.getString(index4));
             long millis = (long) time_set;
@@ -98,7 +98,7 @@ public class RecordHistory extends Activity {
             speed = String.format("%.1f", 1000 * distance_F / time_set * 60);
             cal = String.format("%.0f", Float.parseFloat(cursor.getString(index6)));
             points = cursor.getString(index7);
-            historyData.add(new History(cursor.getString(index2), distance_S, time_show, speed, cal, points));
+            historyData.add(new History(cursor.getString(index2), distance_S, time_show, speed, cal, points));// insert a new History with data to the linked list
         }
     }
 
