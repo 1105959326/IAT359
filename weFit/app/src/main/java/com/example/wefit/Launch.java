@@ -17,6 +17,7 @@ public class Launch extends AppCompatActivity {// set up a first view class to r
         ft = fm.beginTransaction();
 
 
+
     }
     public void onStart() {
         super.onStart();

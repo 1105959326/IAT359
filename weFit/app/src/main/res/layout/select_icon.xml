@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+
+
+<TableLayout  android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            />
+
+    <LinearLayout
+        android:id="@+id/pop"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/icon_1"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+
+            android:background="@drawable/icon1"
+            />
+        <ImageButton
+            android:id="@+id/icon_2"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+           
+
+            android:background="@drawable/icon2"
+            />
+        <ImageButton
+            android:id="@+id/icon_3"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+
+            android:background="@drawable/icon3"
+            />
+        <ImageButton
+            android:id="@+id/icon_4"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+
+            android:background="@drawable/icon4"
+            />
+        <ImageButton
+            android:id="@+id/icon_5"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+
+            android:background="@drawable/icon5"
+            />
+        <ImageButton
+            android:id="@+id/icon_6"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+
+            android:background="@drawable/icon6"
+            />
+
+
+
+    </LinearLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+
+
+
+
+    </TableLayout>
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.wefit;
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,10 +26,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -35,18 +41,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codingending.popuplayout.PopupLayout;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private ImageView ivHead;
     private TextView Distance, Time, Speed, Calory;
     private Button change, search,history,share;
+    private ImageButton icon1,icon2,icon3,icon4,icon5,icon6;
     private Bitmap head;
-    private static String path = "/wefit/";
+    private static String path = "weFit/";
     private RecordedDatabase db;
     private float totalDis, totalTime, totalSpeed, totalCal;
 
@@ -73,6 +84,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         helperClass = new HelperClass(getContext());
 
 
+
 //
 
     }
@@ -80,7 +92,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         update();
+
     }
+
 //get the elements in xml and set the click listener
     private void findId(View view) {
         Distance = view.findViewById(R.id.Distance_t);
@@ -97,6 +111,22 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         share.setOnClickListener(this);
         history=view.findViewById(R.id.empty);
         history.setOnClickListener(this);
+        icon1 = (ImageButton)view.findViewById(R.id.icon_1);
+
+        icon2 = (ImageButton)view.findViewById(R.id.icon_2);
+        icon3 = (ImageButton)view.findViewById(R.id.icon_3);
+        icon4 = (ImageButton)view.findViewById(R.id.icon_4);
+        icon5 = (ImageButton)view.findViewById(R.id.icon_5);
+        icon6 = (ImageButton)view.findViewById(R.id.icon_6);
+        icon1.setOnClickListener(this);
+        icon2.setOnClickListener(this);
+        icon3.setOnClickListener(this);
+        icon4.setOnClickListener(this);
+        icon5.setOnClickListener(this);
+        icon6.setOnClickListener(this);
+
+
+
     }
 
 //set the head icon as you have saved. if not use the default icon
@@ -116,22 +146,78 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
         switch (v.getId()) {
+            case R.id.icon_1:
+                ivHead.setImageResource(R.drawable.icon1);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+            case R.id.icon_2:
+                ivHead.setImageResource(R.drawable.icon2);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+            case R.id.icon_3:
+                ivHead.setImageResource(R.drawable.icon3);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+            case R.id.icon_4:
+                ivHead.setImageResource(R.drawable.icon4);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+            case R.id.icon_5:
+                ivHead.setImageResource(R.drawable.icon5);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+            case R.id.icon_6:
+                ivHead.setImageResource(R.drawable.icon6);
+
+                popupLayout.dismiss();
+                popupLayout.hide();
+                break;
+
             case R.id.change_button:
 
-                Intent intent1 = new Intent(Intent.ACTION_PICK, null);//open the album
-                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//get the select picture `s uri as data
+                popupLayout.show();
 
-                startActivityForResult(intent1, 1); //set the result code as 1
+//                boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+//                Intent getAlbum;
+//                if (isKitKatO) {
+//                    getAlbum = new Intent(Intent.ACTION_PICK);
+//                } else {
+//                    getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+//                }
+//
+//                getAlbum.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//get the select picture `s uri as data
+//
+//                startActivityForResult(getAlbum, 1); //set the result code as 1
                 break;
+
 
             default:
                 break;
+        }
+        if(v.getId() ==R.id.icon_1){
+            ivHead.setImageResource(R.drawable.icon1);
+
+            popupLayout.dismiss();
+            popupLayout.hide();
+
         }
 
         if (v.getId() == R.id.search_button) {
             if (search_type != null) {
                 Intent i = new Intent(getActivity(), RecordHistory.class);
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 i.putExtra("search", search_type.getText().toString());
                 startActivity(i);
             }
@@ -150,13 +236,56 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
 
         }
+
     }
+    public void check(View v){
+
+            if (v.getId() == R.id.icon_1){
+
+                ivHead.setImageResource(R.drawable.icon1);
+//                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+//                popupLayout.dismiss();
+            }
+            if (v.getId() == R.id.icon_2){
+                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+                popupLayout.dismiss();
+                ivHead.setImageResource(R.drawable.icon2);
+            }
+            if (v.getId() == R.id.icon_3){
+                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+                popupLayout.dismiss();
+                ivHead.setImageResource(R.drawable.icon3);
+            }
+            if (v.getId() == R.id.icon_4){
+                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+                popupLayout.dismiss();
+                ivHead.setImageResource(R.drawable.icon4);
+            }
+            if (v.getId() == R.id.icon_5){
+                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+                popupLayout.dismiss();
+                ivHead.setImageResource(R.drawable.icon5);
+            }
+            if (v.getId() == R.id.icon_6){
+                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
+                popupLayout.dismiss();
+                ivHead.setImageResource(R.drawable.icon6);
+            }
+
+    }
+
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 1:
 
-                cropPhoto(data.getData());// run the crop function
+
+//
+
+
+
+
 
 
                 break;
@@ -167,7 +296,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                     head = extras.getParcelable("data");
                     if (head != null) {
 
-                        setPicToView(head);//get the data of picture and set the icon as the picture after crop
+//                        setPicToView(head);//get the data of picture and set the icon as the picture after crop
                         ivHead.setImageBitmap(head);
                     }
                 }
@@ -189,53 +318,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    ;
-
-    public void cropPhoto(Uri uri) {
 
 
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
 
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
 
-        intent.putExtra("outputX", 150);//set the size as 150*150
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3);
-    }
 
-    private void setPicToView(Bitmap mBitmap) {//store the pic to the local file and use the picture as icon
-        String sdStatus = Environment.getExternalStorageState();
-        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
-            return;
-        }
-        FileOutputStream b = null;
-        File file = new File(path);
-        file.mkdirs();
-        String fileName = path + "head.jpg";
-        try {
-            b = new FileOutputStream(fileName);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-
-                b.flush();
-                b.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
 
 
     public void update() {
