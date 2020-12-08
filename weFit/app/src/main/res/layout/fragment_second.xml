@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-android:layout_weight="3"
+
 
     android:padding="5dp">
 
@@ -48,7 +48,6 @@ android:layout_weight="3"
         android:id="@+id/step_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@+id/header_section"
         android:gravity="center">
 
@@ -88,7 +87,6 @@ android:layout_weight="3"
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_weight="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/step_section">
@@ -191,7 +189,7 @@ android:layout_weight="3"
                 android:text="Your body"
                 android:textColor="@color/colorAccent" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -201,16 +199,16 @@ android:layout_weight="3"
                     android:id="@+id/first_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
-                    >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@drawable/height" />
+                        android:src="@mipmap/ic_launcher" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -227,17 +225,17 @@ android:layout_weight="3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/first_layout"
-
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
-                   >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@drawable/kg" />
+                        android:src="@mipmap/ic_launcher" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -252,19 +250,19 @@ android:layout_weight="3"
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:layout_centerVertical="true"
 
                     android:layout_toRightOf="@id/second_layout"
-
-                    >
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="16dp"
-                        android:src="@drawable/mas" />
+                        android:src="@mipmap/ic_launcher" />
 
                     <EditText
                         android:layout_width="wrap_content"
@@ -277,15 +275,13 @@ android:layout_weight="3"
                 </LinearLayout>
 
 
-            </LinearLayout>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+            </RelativeLayout>
+
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/russoone_regular"
@@ -296,22 +292,12 @@ android:layout_weight="3"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/russoone_regular"
                 android:text="HISTORY" />
-    <Button
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:id="@+id/clear"
-        android:fontFamily="@font/russoone_regular"
-        android:text="Empty"/>
-</LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
