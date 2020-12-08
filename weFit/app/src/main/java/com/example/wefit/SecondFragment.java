@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -50,6 +51,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+import static java.text.DateFormat.DEFAULT;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
     private ImageView ivHead;
@@ -60,7 +63,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     private static String path = "weFit/";
     private RecordedDatabase db;
     private float totalDis, totalTime, totalSpeed, totalCal;
-   private State State = new State();
     private EditText search_type;
     private HelperClass helperClass;
     private boolean click=false;
@@ -85,26 +87,30 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         helperClass = new HelperClass(getContext());
         layout1=(LinearLayout)view.findViewById(R.id.pop);
         layout1.setVisibility(View.INVISIBLE);
-        switch(State.getPic()){
-            case 1:
-                ivHead.setImageResource(R.drawable.icon1);
-                break;
-            case 2:
-                ivHead.setImageResource(R.drawable.icon2);
-                break;
-            case 3:
-                ivHead.setImageResource(R.drawable.icon3);
-                break;
-            case 4:
-                ivHead.setImageResource(R.drawable.icon4);
-                break;
-            case 5:
-                ivHead.setImageResource(R.drawable.icon5);
-                break;
-            case 6:
-                ivHead.setImageResource(R.drawable.icon6);
-                break;
+        SharedPreferences sp= getContext().getSharedPreferences("avatarNum", MODE_PRIVATE);
+        int num = sp.getInt("picNum", DEFAULT);
+        if (num != 0) {
+            switch (num) {
+                case 1:
+                    ivHead.setImageResource(R.drawable.icon1);
+                    break;
+                case 2:
+                    ivHead.setImageResource(R.drawable.icon2);
+                    break;
+                case 3:
+                    ivHead.setImageResource(R.drawable.icon3);
+                    break;
+                case 4:
+                    ivHead.setImageResource(R.drawable.icon4);
+                    break;
+                case 5:
+                    ivHead.setImageResource(R.drawable.icon5);
+                    break;
+                case 6:
+                    ivHead.setImageResource(R.drawable.icon6);
+                    break;
 
+            }
         }
 
     }
@@ -157,70 +163,60 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        int i = 0;
         switch (v.getId()) {
+
             case R.id.icon_1:
                 ivHead.setImageResource(R.drawable.icon1);
-                State.putPic(1);
+                i = 1;
                 layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_2:
                 ivHead.setImageResource(R.drawable.icon2);
                 layout1.setVisibility(View.INVISIBLE);
-                State.putPic(2);
-
+                i = 2;
                 break;
             case R.id.icon_3:
                 ivHead.setImageResource(R.drawable.icon3);
                 layout1.setVisibility(View.INVISIBLE);
-
-                State.putPic(3);
+                i = 3;
                 break;
             case R.id.icon_4:
                 ivHead.setImageResource(R.drawable.icon4);
                 layout1.setVisibility(View.INVISIBLE);
-                State.putPic(4);
+                i = 4;
                 break;
             case R.id.icon_5:
                 ivHead.setImageResource(R.drawable.icon5);
-                State.putPic(5);
+                i = 5;
                 layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_6:
                 ivHead.setImageResource(R.drawable.icon6);
-                State.putPic(6);
+                i = 6;
                 layout1.setVisibility(View.INVISIBLE);
                 break;
 
             case R.id.change_button:
 
                 layout1.setVisibility(View.VISIBLE);
-
-
-//                boolean isKitKatO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-//                Intent getAlbum;
-//                if (isKitKatO) {
-//                    getAlbum = new Intent(Intent.ACTION_PICK);
-//                } else {
-//                    getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-//                }
-//
-//                getAlbum.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//get the select picture `s uri as data
-//
-//                startActivityForResult(getAlbum, 1); //set the result code as 1
                 break;
 
 
             default:
                 break;
         }
+        SharedPreferences sp= getContext().getSharedPreferences("avatarNum", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("picNum", i);
+        editor.commit();
 
         if (v.getId() == R.id.search_button) {
             if (search_type != null) {
-                Intent i = new Intent(getActivity(), RecordHistory.class);
-                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                i.putExtra("search", search_type.getText().toString());
-                startActivity(i);
+                Intent intent = new Intent(getActivity(), RecordHistory.class);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.putExtra("search", search_type.getText().toString());
+                startActivity(intent);
             }
         }
         if (v.getId() == R.id.empty) {
@@ -244,8 +240,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             if (v.getId() == R.id.icon_1){
 
                 ivHead.setImageResource(R.drawable.icon1);
-//                PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
-//                popupLayout.dismiss();
+
             }
             if (v.getId() == R.id.icon_2){
                 PopupLayout popupLayout= PopupLayout.init(getActivity(), R.layout.select_icon);
