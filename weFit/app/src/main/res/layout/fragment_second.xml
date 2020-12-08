@@ -201,6 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -224,9 +225,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/first_layout"
                     android:gravity="center_vertical"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -248,9 +250,10 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="24dp"
+
                     android:layout_toRightOf="@id/second_layout"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
