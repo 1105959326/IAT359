@@ -60,7 +60,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     private static String path = "weFit/";
     private RecordedDatabase db;
     private float totalDis, totalTime, totalSpeed, totalCal;
-
+   private State State = new State();
     private EditText search_type;
     private HelperClass helperClass;
     private boolean click=false;
@@ -80,11 +80,32 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findId(view);
-        initView();
+
         db = new RecordedDatabase(getContext());
         helperClass = new HelperClass(getContext());
         layout1=(LinearLayout)view.findViewById(R.id.pop);
         layout1.setVisibility(View.INVISIBLE);
+        switch(State.getPic()){
+            case 1:
+                ivHead.setImageResource(R.drawable.icon1);
+                break;
+            case 2:
+                ivHead.setImageResource(R.drawable.icon2);
+                break;
+            case 3:
+                ivHead.setImageResource(R.drawable.icon3);
+                break;
+            case 4:
+                ivHead.setImageResource(R.drawable.icon4);
+                break;
+            case 5:
+                ivHead.setImageResource(R.drawable.icon5);
+                break;
+            case 6:
+                ivHead.setImageResource(R.drawable.icon6);
+                break;
+
+        }
 
 
 
@@ -138,19 +159,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     }
 
 //set the head icon as you have saved. if not use the default icon
-    private void initView() {
 
-        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
-        if (bt != null) {
-            @SuppressWarnings("deprecation")
-            Drawable drawable = new BitmapDrawable(bt);
-            ivHead.setImageDrawable(drawable);
-        } else {
-
-        }
-
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -158,33 +167,34 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.icon_1:
                 ivHead.setImageResource(R.drawable.icon1);
-
+                State.putPic(1);
                 layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_2:
                 ivHead.setImageResource(R.drawable.icon2);
                 layout1.setVisibility(View.INVISIBLE);
+                State.putPic(2);
 
                 break;
             case R.id.icon_3:
                 ivHead.setImageResource(R.drawable.icon3);
                 layout1.setVisibility(View.INVISIBLE);
 
-
+                State.putPic(3);
                 break;
             case R.id.icon_4:
                 ivHead.setImageResource(R.drawable.icon4);
                 layout1.setVisibility(View.INVISIBLE);
-
+                State.putPic(4);
                 break;
             case R.id.icon_5:
                 ivHead.setImageResource(R.drawable.icon5);
-
+                State.putPic(5);
                 layout1.setVisibility(View.INVISIBLE);
                 break;
             case R.id.icon_6:
                 ivHead.setImageResource(R.drawable.icon6);
-
+                State.putPic(6);
                 layout1.setVisibility(View.INVISIBLE);
                 break;
 
