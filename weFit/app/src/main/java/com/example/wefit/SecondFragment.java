@@ -86,11 +86,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         layout1=(LinearLayout)view.findViewById(R.id.pop);
         layout1.setVisibility(View.INVISIBLE);
 
-        
-
-        ivHead.setImageResource(70036);
-//
-
     }
 
     public void onStart() {
