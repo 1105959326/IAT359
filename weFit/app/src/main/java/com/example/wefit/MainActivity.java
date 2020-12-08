@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft = fm.beginTransaction();
 
 
-        ft.replace(R.id.activity_window, new RecordingActivity());
+        ft.replace(R.id.activity_window, new LoginFragment());
         ft.commitAllowingStateLoss();
 
         //ask for permission

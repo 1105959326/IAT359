@@ -67,6 +67,7 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
                 postions.add(latLng);
             }
             else break;
+
         }
 
         //call location listener
@@ -102,6 +103,9 @@ public class MapDetail extends FragmentActivity implements OnMapReadyCallback {
         if(postions.size() > 2){
             polyline.setPoints(postions);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getCenterOfPolygon(postions), 15));
+        }
+        else{
+            Toast.makeText(this, "Route too short", Toast.LENGTH_LONG).show();
         }
     }
 

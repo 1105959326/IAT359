@@ -122,7 +122,6 @@ public class MapRecordPage extends FragmentActivity implements OnMapReadyCallbac
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
-                    Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.activityMap);
                     assert supportMapFragment != null;
                     supportMapFragment.getMapAsync(MapRecordPage.this);
